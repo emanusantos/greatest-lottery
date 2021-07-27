@@ -1,10 +1,11 @@
 import React from 'react';
+import Login from './pages/login/Login';
 
 function App() {
   return (
-    <div className="App">
-      <h1>oi</h1>
-    </div>
+    <>
+      <Login />
+    </>
   );
 }
 
