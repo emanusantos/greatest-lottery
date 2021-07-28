@@ -53,7 +53,9 @@ export const Container = styled.div<Props>`
 
         &:hover {
             filter: brightness(1.25);
+            transition-duration: 0.4s;
         }
+
     }
 `;
 
@@ -99,7 +101,7 @@ export const Form = styled.form`
 
         &:focus::placeholder {
             color: transparent;
-            transition-duration: 0.2s;
+            transition-duration: 0.4s;
         }
     }
 
@@ -116,6 +118,7 @@ export const Form = styled.form`
 
         &:hover {
             filter: brightness(.75);
+            transition-duration: 0.4s;
         }
     }
 `;
