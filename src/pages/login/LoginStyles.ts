@@ -47,6 +47,14 @@ export const Container = styled.div<Props>`
     margin-top: ${props => props.mt};
     text-align: center;
     font-style: italic;
+
+    #signup {
+        cursor: pointer;
+
+        &:hover {
+            filter: brightness(1.25);
+        }
+    }
 `;
 
 export const Form = styled.form`
@@ -105,5 +113,9 @@ export const Form = styled.form`
         color: #C1C1C1;
         padding: 1rem;
         margin-left: 8rem;
+
+        &:hover {
+            filter: brightness(.75);
+        }
     }
 `;
