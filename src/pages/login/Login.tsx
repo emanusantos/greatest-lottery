@@ -11,7 +11,7 @@ const Login: React.FC = () => {
             <Container fd="column" mw="22rem">
                 <H3>Authentication</H3>
                 <Form>
-                    <input type="email" placeholder="Email" id="email" />
+                    <input type="email" placeholder="Email" id="radius" />
                     <input type="text" placeholder="Password" />
                     <a href="/#">I forgot my password</a>
                     <button>Log In ➝</button>

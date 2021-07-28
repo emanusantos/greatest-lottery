@@ -103,7 +103,7 @@ export const Form = styled.form`
         }
     }
 
-    #email {
+    #radius {
         border-radius: 1rem 1rem 0 0;
     }
 
