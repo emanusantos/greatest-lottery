@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 const Underline = styled.div`
     position: absolute;
     top: 3.1rem;
-    left: 8.563rem;
+    left: 8.6rem;
     width: 5.94rem;
     height: .44rem;
     background-color: #B5C401;
