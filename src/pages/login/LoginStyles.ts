@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const H1 = styled.h1`
-    font-size: 5.3rem;
+    font-size: 5rem;
     color: #707070;
 `;
 
@@ -22,6 +22,7 @@ export const H2 = styled.h2`
 export const H3 = styled.h3`
     font-size: 2.2rem;
     color: #707070;
+    margin-top: 1rem;
 `;
 
 export const BtnFor = styled.button`

@@ -12,8 +12,9 @@ const Login: React.FC = () => {
                     <input type="email" placeholder="Email" id="email" />
                     <input type="text" placeholder="Password" />
                     <a href="/#">I forgot my password</a>
-                    <button>Log In</button>
+                    <button>Log In ➝</button>
                 </Form>
+                <H3>Sign Up ➝</H3>
             </Container>
         </Container>
     );
