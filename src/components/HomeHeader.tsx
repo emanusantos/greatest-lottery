@@ -35,16 +35,34 @@ const StyledHomeHeader = styled.div`
         #Lotofácil {
             color: #7F3992;
             border: .15rem solid #7F3992;
+
+            &:hover {
+                color: #fff;
+                background-color: #7F3992;
+                transition-duration: 0.4s;
+            }
         }
 
         #Mega-Sena {
             color: #01AC66;
             border: .15rem solid #01AC66;
+
+            &:hover {
+                color: #fff;
+                background-color: #01AC66;
+                transition-duration: 0.4s;
+            }
         }
 
         #Quina {
             color: #F79C31;
             border: .15rem solid #F79C31;
+
+            &:hover {
+                color: #fff;
+                background-color: #F79C31;
+                transition-duration: 0.4s;
+            }
         }
     }
 
@@ -57,6 +75,11 @@ const StyledHomeHeader = styled.div`
     #newbet {
         color: #B5C401;
         cursor: pointer;
+
+        &:hover {
+            filter: brightness(.75);
+            transition-duration: 0.4s;
+        }
     }
 `;
 
