@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const GameButtons = styled.div`
+export const GameButtons = styled.div`
     display: flex;
     gap: 1.5rem;
 
@@ -47,15 +46,3 @@ const GameButtons = styled.div`
             }
         }
 `;
-
-const Buttons: React.FC = () => {
-    return (
-        <GameButtons>
-            <button id="Lotofácil">Lotofácil</button>
-            <button id="Mega-Sena">Mega-Sena</button>
-            <button id="Quina">Quina</button>
-        </GameButtons>
-    );
-};
-
-export default Buttons;

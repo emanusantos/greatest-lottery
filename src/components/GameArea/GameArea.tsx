@@ -1,9 +1,25 @@
-import React from 'react';
-import Buttons from '../Buttons';
+import React, { useState } from 'react';
+import Buttons from '../Buttons/Buttons';
 import { Game } from './GameAreaStyles';
 import Data from '../../games.json';
 
+interface GameType {
+    type: string;
+    description: string;
+    range: number;
+    price: number;
+    maxNumber: number;
+    color: string;
+    minCartValue: number;
+}
+
 const GameArea: React.FC = () => {
+
+    const [games, setGames] = useState<GameType[]>([]);
+
+    const onLoto = () => {
+        
+    };
 
     return (
         <Game>
