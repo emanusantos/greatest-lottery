@@ -86,25 +86,6 @@ export const Form = styled.form`
         }
     }
 
-    input {
-        border: none;
-        padding: 1.5rem;
-        border-bottom: 2px solid #EBEBEB;
-        width: 100%;
-        outline: none;
-
-        &::placeholder {
-            color: #9D9D9D;
-            font-style: italic;
-            font-weight: bold;
-        }
-
-        &:focus::placeholder {
-            color: transparent;
-            transition-duration: 0.4s;
-        }
-    }
-
     #radius {
         border-radius: 1rem 1rem 0 0;
     }

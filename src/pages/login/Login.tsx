@@ -1,18 +1,51 @@
-import React from "react";
+import React, { FormEvent, useState } from "react";
 import { Container, Form, H3 } from "./LoginStyles";
+import { Input } from "../../components/Input";
 import GreatestApp from "../../components/GreatestApp";
 import Footer from "../../components/Footer";
 
 const Login: React.FC = () => {
+
+    const [email, setEmail] = useState<string | null>('');
+    const [password, setPassword] = useState<string | null>('');
+
+    const emailResetter = () => {
+        setEmail('');
+    };
+
+    const passwordResetter = () => {
+        setPassword('');
+    };
+
+
+    const formHandler = (event: React.SyntheticEvent) => {
+        event.preventDefault();
+
+        console.log(email, password)
+
+        emailResetter();
+        passwordResetter();
+    };
+
     return (
         <>
         <Container jc="space-evenly" ai="space-around" mt="5rem">
             <GreatestApp />
             <Container fd="column" mw="22rem">
                 <H3>Authentication</H3>
-                <Form>
-                    <input type="email" placeholder="Email" id="radius" />
-                    <input type="text" placeholder="Password" />
+                <Form onSubmit={formHandler}>
+                    <Input type="email" 
+                        placeholder="Email" 
+                        id="radius" 
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                    />
+                    <Input 
+                        type="password" 
+                        placeholder="Password" 
+                        onChange={(e) => setPassword(e.target.value)}
+                        value={password}
+                    />
                     <a href="/#">I forgot my password</a>
                     <button>Log In ➝</button>
                 </Form>
