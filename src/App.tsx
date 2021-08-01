@@ -8,7 +8,7 @@ import NewBet from './pages/newbet/NewBet';
 function App() {
   return (
     <>
-      <Login />
+      <Signup />
     </>
   );
 }

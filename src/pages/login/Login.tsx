@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { useState } from "react";
 import { Container, Form, H3 } from "./LoginStyles";
 import { Input } from "../../components/Input";
 import GreatestApp from "../../components/GreatestApp";
@@ -6,8 +6,8 @@ import Footer from "../../components/Footer";
 
 const Login: React.FC = () => {
 
-    const [email, setEmail] = useState<string | null>('');
-    const [password, setPassword] = useState<string | null>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
     const emailResetter = () => {
         setEmail('');
@@ -20,6 +20,10 @@ const Login: React.FC = () => {
 
     const formHandler = (event: React.SyntheticEvent) => {
         event.preventDefault();
+
+        if (email.length === 0 || password.length === 0) {
+            return;
+        };
 
         console.log(email, password)
 
