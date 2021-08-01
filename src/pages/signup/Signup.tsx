@@ -3,8 +3,9 @@ import GreatestApp from '../../components/GreatestApp';
 import { Container, Form, H3 } from '../login/LoginStyles';
 import Footer from '../../components/Footer';
 import { Input } from '../../components/Input';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxhooks';
 import { register } from '../../store/regSlice';
+import { selectUser } from '../../store/regSlice';
 
 const Signup: React.FC = () => {
 
@@ -12,7 +13,8 @@ const Signup: React.FC = () => {
     const [emailReg, setEmailReg] = useState<string>('');
     const [passwordReg, setPasswordReg] = useState<string>('');
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
+    const user = useAppSelector(selectUser);
 
     const nameResetter = () => {
         setNameReg('');
@@ -36,6 +38,7 @@ const Signup: React.FC = () => {
 
         console.log(nameReg, emailReg, passwordReg);
         dispatch(register({name: nameReg, email: emailReg, password: passwordReg}))
+        console.log(user)
 
         nameResetter();
         emailResetter();
