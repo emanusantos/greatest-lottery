@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
-const initialState: { users: string[] } = { users: [] }
+const initialState: { users: string[], currentUser: object | null } = { users: [], currentUser: null }
 
 const regSlice = createSlice({
     name: 'reg',
@@ -9,12 +9,16 @@ const regSlice = createSlice({
     reducers: {
         register: (state, action) => {
             state.users.push(action.payload);
+        },
+        logRegisteredUser: (state, action) => {
+            state.currentUser = action.payload;
         }
     }
 });
 
-export const { register } = regSlice.actions;
+export const { register, logRegisteredUser } = regSlice.actions;
 
 export const selectUser = (state: RootState) => state.reg.users;
+export const setUser = (state: RootState) => state.reg.currentUser;
 
 export const regReducer = regSlice.reducer;

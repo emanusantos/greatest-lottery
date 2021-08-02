@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface Games {
+export interface Games {
     type: string; 
     description: string;
     range: number;
     price: number;
-    maxNumber: number;
+    'max-number': number;
     color: string;
-    minCartValue: number;
+    'min-cart-value': number;
 }
 
 const initialGameState: Games[] = [
@@ -16,11 +16,12 @@ const initialGameState: Games[] = [
         description: '',
         range: 0,
         price: 0,
-        maxNumber: 0,
+        'max-number': 0,
         color: '',
-        minCartValue: 0
+        'min-cart-value': 0
     }
-];
+]
+    
 
 const gameSlice = createSlice({
     name: 'game',
@@ -33,4 +34,5 @@ const gameSlice = createSlice({
 })
 
 export const gameActions = gameSlice.actions;
+export const defaultGame = initialGameState;
 export const gameReducers = gameSlice.reducer;
