@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../../components/Navbar';
 import { BetContainer } from './NewBetStyles';
 import GameArea from '../../components/GameArea/GameArea';
+import CartArea from '../../components/CartArea/CartArea';
 
 const NewBet: React.FC = () => {
     return (
@@ -9,6 +10,7 @@ const NewBet: React.FC = () => {
             <Navbar />
             <BetContainer>
                 <GameArea />
+                <CartArea />
             </BetContainer>
         </>
     );

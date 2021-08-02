@@ -7,6 +7,7 @@ interface Props {
     jc?: string;
     ai?: string;
     mt?: string;
+    bgc?: string;
 }
 
 export const H1 = styled.h1`
@@ -45,6 +46,7 @@ export const Container = styled.div<Props>`
     max-width: ${props => props.mw};
     justify-content: ${props => props.jc};
     margin-top: ${props => props.mt};
+    background-color: ${props => props.bgc};
     text-align: center;
     font-style: italic;
 

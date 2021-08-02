@@ -4,7 +4,7 @@ export const Game = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    max-width: 42rem;
+    max-width: 39rem;
 
     .descriptionArea {
         display: flex;
@@ -62,8 +62,8 @@ export const GameButtons = styled.div`
 `;
 
 export const BetNumber = styled.button`
-    width: 3.9rem;
-    height: 4rem;
+    width: 3.5rem;
+    height: 3.7rem;
     background-color: #ADC0C4;
     font-weight: bold;
     font-size: 1.25rem;
@@ -72,6 +72,11 @@ export const BetNumber = styled.button`
     border: none;
     border-radius: 6rem;
     cursor: pointer;
+
+    &:hover {
+        filter: brightness(.85);
+        transition-duration: .2s;
+    }
 `;
 
 interface BetButtonProps {
@@ -99,7 +104,7 @@ export const BetButton = styled.button<BetButtonProps>`
 export const AddButton = styled.button`
     width: 13rem;
     height: 3.25rem;
-    margin-left: 6.7rem;
+    margin-left: 4rem;
     background-color: #27C383;
     color: #fff;
     border: 1px solid #27C383;
