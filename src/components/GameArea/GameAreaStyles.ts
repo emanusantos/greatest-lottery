@@ -61,24 +61,6 @@ export const GameButtons = styled.div`
         }
 `;
 
-export const BetNumber = styled.button`
-    width: 3.5rem;
-    height: 3.7rem;
-    background-color: #ADC0C4;
-    font-weight: bold;
-    font-size: 1.25rem;
-    margin: .375rem;
-    color: #fff;
-    border: none;
-    border-radius: 6rem;
-    cursor: pointer;
-
-    &:hover {
-        filter: brightness(.85);
-        transition-duration: .2s;
-    }
-`;
-
 interface BetButtonProps {
     width: string;
 }

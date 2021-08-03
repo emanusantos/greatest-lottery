@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const CartContainer = styled.div`
-    width: 20rem;
+    width: 18rem;
     height: 50%;
     display: flex;
     flex-direction: column;
@@ -12,7 +12,7 @@ export const CartContainer = styled.div`
     h4 {
         padding: 2rem 1rem;
         text-align: center;
-        color: #e2e2e2;
+        color: #e4e4e4;
     }
 
     .padding {
