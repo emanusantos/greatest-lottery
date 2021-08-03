@@ -6,7 +6,7 @@ import { useAppSelector } from '../../hooks/reduxhooks';
 import { Games } from '../../store/gameSlice';
 import { nodeModuleNameResolver } from 'typescript';
 
-let currentGameRange: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 , 14 , 15, 16, 17, 18, 19, 20];
+let currentGameRange: number[] = [];
 
 const GameArea: React.FC = () => {
 
@@ -60,6 +60,14 @@ const GameArea: React.FC = () => {
         setChoseNumbers([...choseNumbers, numberSelected])
         console.log(choseNumbers)
     }
+    
+    const checker = () => {
+        if (game.type === '') {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     return (
         <Game>
@@ -73,11 +81,11 @@ const GameArea: React.FC = () => {
                 onClick={e => updateGameType(e.currentTarget.value)}
                 value={button.type}>{button.type}</button>)}
             </GameButtons>
-            <div className="descriptionArea">
+            {checker() && <div className="descriptionArea">
                 <p>Fill your bet</p>
                 <p>{game.description}</p>
-            </div>
-           {game && <div className="numbersArea">
+            </div>}
+           {checker() && <div className="numbersArea">
                 {currentGameRange.map(button => {
                     let selected = false;
                     if (choseNumbers?.includes(button)) selected = true
@@ -87,11 +95,11 @@ const GameArea: React.FC = () => {
                     )
                 })}
             </div>}
-            <div className="buttonsArea">
+            {checker() && <div className="buttonsArea">
                 <BetButton width="10rem" id="complete">Complete game</BetButton>
                 <BetButton width="8.5rem" id="clear">Clear game</BetButton>
                 <AddButton id="add">Add to cart</AddButton>
-            </div>
+            </div>}
         </Game>
     );
 };
