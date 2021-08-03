@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { gameReducers } from "./gameSlice";
+import { gameReducers } from "./cartSlice";
 import { regReducer } from "./regSlice";
 
 const store = configureStore({

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Game, GameButtons, BetButton, AddButton } from './GameAreaStyles';
 import SelectedNumbers from '../SelectedNumber/SelectedNumber';
 import Data from '../../games.json';
-import { useAppSelector } from '../../hooks/reduxhooks';
-import { Games } from '../../store/gameSlice';
+import { Games } from '../../store/cartSlice';
 
 let currentGameRange: number[] = [];
 
@@ -19,7 +18,12 @@ const GameArea: React.FC = () => {
         'min-cart-value': 0
     });
 
-    const [choseNumbers, setChoseNumbers] = useState<any>()
+    const [choseNumbers, setChoseNumbers] = useState<any>();
+    const [toCart, setToCart] = useState<any>([]);
+
+    const cartAddHandler = (arg: any) => {
+        setToCart(arg);
+    };
 
     const updateGameType = (e: string) => {
         if (e === game.type) {
@@ -89,7 +93,54 @@ const GameArea: React.FC = () => {
         return (array = array.filter((num) => {
             return num !== number;
         }));
+    };
+
+    const getRandomGame = () => {
+        const amount = game['max-number'] - choseNumbers.length;
+        const randomizedNumbers = generateNumbers(amount, game.range, choseNumbers);
+        setChoseNumbers([...randomizedNumbers]);
+    };
+
+    const generateNumbers = (amount: number, range: number, array: number[]) => {
+        const getRandomNumbers = (max: number) => {
+            return Math.ceil(Math.random() * max);
+        };
+        
+        for (let i = 1; i <= amount; i++) {
+            const number = getRandomNumbers(range)
+            if (numberAlreadyExists(array, number)) {
+              i--
+            } else {
+              array.push(number)
+            }
+          }
+          return array
+    };
+
+    const formatNumbers = () => {
+        let display = '';
+        choseNumbers.sort((a: number, b: number) => a - b).forEach((item: number, index: number) => {
+            if (index !== choseNumbers.length - 1) {
+                display += `${item}, `
+            } else {
+                display += item
+            }
+        })
+        return display;
     }
+
+    const clearGame = () => {
+        setChoseNumbers([]);
+    };
+
+    const addItemToCart = () => {
+        if (choseNumbers.length < game['max-number']) {
+            return;
+        }
+
+        cartAddHandler([...toCart, { numbers: formatNumbers(), price: game.price, }])
+        console.log(toCart);
+    };
 
     return (
         <Game>
@@ -118,9 +169,9 @@ const GameArea: React.FC = () => {
                 })}
             </div>}
             {checker() && <div className="buttonsArea">
-                <BetButton width="10rem" id="complete">Complete game</BetButton>
-                <BetButton width="8.5rem" id="clear">Clear game</BetButton>
-                <AddButton id="add">Add to cart</AddButton>
+                <BetButton onClick={getRandomGame} width="10rem" id="complete">Complete game</BetButton>
+                <BetButton onClick={clearGame} width="8.5rem" id="clear">Clear game</BetButton>
+                <AddButton onClick={addItemToCart} id="add">Add to cart</AddButton>
             </div>}
         </Game>
     );
