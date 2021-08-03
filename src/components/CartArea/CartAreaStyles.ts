@@ -9,6 +9,17 @@ export const CartContainer = styled.div`
     border-radius: .8rem;
     background-color: #fff;
 
+    .titleFont {
+        font-size: 1.3rem;
+        font-weight: bold;
+        font-style: italic;
+    }
+
+    span {
+        font-style: normal;
+        font-weight: lighter;
+    }
+
     h4 {
         padding: 2rem 1rem;
         text-align: center;

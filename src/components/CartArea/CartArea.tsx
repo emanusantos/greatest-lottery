@@ -5,10 +5,10 @@ const CartArea: React.FC = () => {
     return (
         <CartContainer>
             <div className="padding">
-                <h3>CART</h3>
+                <p className="titleFont">CART</p>
                 <h4>Carrinho vazio</h4>
                 <div className="cartItem"></div>
-                <h3>CART <span>TOTAL</span></h3>
+                <p className="titleFont">CART<span> TOTAL</span></p>
             </div>
             <div className="btnArea">
                 <button>Save ➝</button>

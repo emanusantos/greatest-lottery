@@ -11,6 +11,11 @@ export const Game = styled.div`
         flex-direction: column;
         gap: .5rem;
     }
+
+    #newbet {
+        padding-top: .7rem;
+        font-size: 1.3rem;
+    }
 `;
 
 export const GameButtons = styled.div`

@@ -4,7 +4,6 @@ import SelectedNumbers from '../SelectedNumber/SelectedNumber';
 import Data from '../../games.json';
 import { useAppSelector } from '../../hooks/reduxhooks';
 import { Games } from '../../store/gameSlice';
-import { nodeModuleNameResolver } from 'typescript';
 
 let currentGameRange: number[] = [];
 
@@ -23,6 +22,10 @@ const GameArea: React.FC = () => {
     const [choseNumbers, setChoseNumbers] = useState<any>()
 
     const updateGameType = (e: string) => {
+        if (e === game.type) {
+            return;
+        };
+
         if (e === 'Lotofácil') {
             currentGameRange = [];
             setGame(Data.types[0])
@@ -49,14 +52,21 @@ const GameArea: React.FC = () => {
         for (let i = 1; i <= range; i++) {
             currentGameRange.push(i)
         };
-        console.log(currentGameRange)
+        console.log(currentGameRange);
     };
 
     const selectNumber = (event: any): void => {
-        const numberSelected = Number(event.currentTarget.dataset.number)
-        console.log(event.currentTarget.dataset.number);
+        const numberSelected = Number(event.currentTarget.dataset.number);
+
+        if (numberAlreadyExists(choseNumbers, numberSelected)) {
+            const array = removeNumber(choseNumbers, numberSelected);
+            return setChoseNumbers(array);
+        }
     
-        if (choseNumbers.length >= game['max-number']) return
+        if (choseNumbers.length >= game['max-number']) {
+            return;
+        };
+    
         setChoseNumbers([...choseNumbers, numberSelected])
         console.log(choseNumbers)
     }
@@ -69,10 +79,22 @@ const GameArea: React.FC = () => {
         }
     }
 
+    const numberAlreadyExists = (array: number[], number: number) => {
+        return array.some((index) => {
+            return index === number;
+        });
+    };
+
+    const removeNumber = (array: number[], number: number) => {
+        return (array = array.filter((num) => {
+            return num !== number;
+        }));
+    }
+
     return (
         <Game>
-            <h3>NEW BET FOR {game.type.toUpperCase()}</h3>
-            <p>Choose a game</p>
+            <p id="newbet"><strong>NEW BET</strong> {checker() && `FOR ${game.type.toUpperCase()}`}</p>
+            <p><strong>Choose a game</strong></p>
             <GameButtons>
                 {Data.types.map((button) => 
                 <button
@@ -82,7 +104,7 @@ const GameArea: React.FC = () => {
                 value={button.type}>{button.type}</button>)}
             </GameButtons>
             {checker() && <div className="descriptionArea">
-                <p>Fill your bet</p>
+                <p><strong>Fill your bet</strong></p>
                 <p>{game.description}</p>
             </div>}
            {checker() && <div className="numbersArea">
