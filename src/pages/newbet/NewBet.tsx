@@ -141,7 +141,7 @@ const NewBet: React.FC = () => {
             return;
         }
 
-        cartAddHandler([...toCart, { numbers: formatNumbers(), price: game.price, }])
+        cartAddHandler([...toCart, { numbers: formatNumbers(), price: game.price, color: game.color, type: game.type }])
         console.log(toCart);
     };
 
