@@ -3,16 +3,25 @@ import { CartContainer } from './CartAreaStyles';
 import { IoTrashOutline } from 'react-icons/io5';
 import { ColoredBar, BetCard, BetGameType } from './CartAreaStyles';
 
-const CartArea = ({ cart, onRemoveGame }: { cart: any, onRemoveGame: any}): React.ReactElement => {
+const CartArea = ({ cart, onRemoveGame, total }: { cart: any, onRemoveGame: any, total: number}): React.ReactElement => {
+
+    const handleSave = () => {
+        if (total < 30) {
+            return;
+        };
+        console.log(cart);
+
+    };
+
     return (
         <CartContainer>
             <div className="padding">
                 <p className="titleFont" id="titleFont">CART</p>
                 {cart.length
                 ? <div className="cartItem">
-                {cart.map((item: any, index: number) =>
+                {cart.map((item: any) =>
                     <div className="parent">
-                    <IoTrashOutline size="1.5rem" className="icon" onClick={() => onRemoveGame(item.id)} />
+                    <IoTrashOutline size="1.5rem" className="icon" onClick={() => onRemoveGame(item.id, item.price)} />
                     <ColoredBar bgc={item.color} />
                     <BetCard>
                         <p className="numbersBet">{item.numbers}</p>
@@ -25,10 +34,10 @@ const CartArea = ({ cart, onRemoveGame }: { cart: any, onRemoveGame: any}): Reac
                 )}
                 </div> 
                 : <h4>Carrinho vazio</h4>}
-                <p className="titleFont" id="footerFont">CART<span> TOTAL:</span></p>
+                <p className="titleFont" id="footerFont">CART<span> TOTAL: R$ {total.toFixed(2).replace('.', ',')}</span></p>
             </div>
             <div className="btnArea">
-                <button>Save ➝</button>
+                <button onClick={handleSave}>Save ➝</button>
             </div>
         </CartContainer>
     );

@@ -8,6 +8,7 @@ import Data from '../../games.json';
 import { Games } from '../../store/cartSlice';
 
 let currentGameRange: number[] = [];
+let total = Number(0);
 
 const NewBet: React.FC = () => {
 
@@ -141,13 +142,15 @@ const NewBet: React.FC = () => {
             return;
         }
 
+        total += game.price;
+
         cartAddHandler([...toCart, { id: Date.now().toString(), numbers: formatNumbers(), price: game.price, color: game.color, type: game.type }])
         console.log(toCart);
     };
 
-    const removeGame = (id: any) => {
+    const removeGame = (id: any, price: number) => {
         let newCart = toCart.filter((cartItem: any) => id !== cartItem.id);
-        console.log(newCart);
+        total -= price;
         return setToCart(newCart);
     };
 
@@ -201,7 +204,7 @@ const NewBet: React.FC = () => {
                     <AddButton onClick={addItemToCart} id="add">Add to cart</AddButton>
                 </div>}
             </Game>
-                <CartArea cart={toCart} onRemoveGame={removeGame} />
+                <CartArea cart={toCart} onRemoveGame={removeGame} total={total} />
             </BetContainer>
         </>
     );
