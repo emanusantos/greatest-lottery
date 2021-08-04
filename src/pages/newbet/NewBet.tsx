@@ -141,8 +141,14 @@ const NewBet: React.FC = () => {
             return;
         }
 
-        cartAddHandler([...toCart, { numbers: formatNumbers(), price: game.price, color: game.color, type: game.type }])
+        cartAddHandler([...toCart, { id: Date.now().toString(), numbers: formatNumbers(), price: game.price, color: game.color, type: game.type }])
         console.log(toCart);
+    };
+
+    const removeGame = (id: any) => {
+        let newCart = toCart.filter((cartItem: any) => id !== cartItem.id);
+        console.log(newCart);
+        return setToCart(newCart);
     };
 
     return (
@@ -183,7 +189,7 @@ const NewBet: React.FC = () => {
                     {currentGameRange.map(button => {
                         let selected = false;
                         if (choseNumbers.includes(button)) selected = true
-                        let bgc = selected ? game.color : '#ADC0C4'
+                        let bgc = selected ? game.color : '#ADC0C4';
                         return (
                             <SelectedNumbers bgc={bgc} clicked={selectNumber} number={button} key={button} />
                         )
@@ -195,7 +201,7 @@ const NewBet: React.FC = () => {
                     <AddButton onClick={addItemToCart} id="add">Add to cart</AddButton>
                 </div>}
             </Game>
-                <CartArea cart={toCart}/>
+                <CartArea cart={toCart} onRemoveGame={removeGame} />
             </BetContainer>
         </>
     );

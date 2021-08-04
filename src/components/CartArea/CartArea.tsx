@@ -3,16 +3,16 @@ import { CartContainer } from './CartAreaStyles';
 import { IoTrashOutline } from 'react-icons/io5';
 import { ColoredBar, BetCard, BetGameType } from './CartAreaStyles';
 
-const CartArea = (cart: any): React.ReactElement => {
+const CartArea = ({ cart, onRemoveGame }: { cart: any, onRemoveGame: any}): React.ReactElement => {
     return (
         <CartContainer>
             <div className="padding">
                 <p className="titleFont" id="titleFont">CART</p>
-                {cart.cart.length
+                {cart.length
                 ? <div className="cartItem">
-                {cart.cart.map((item: any) =>
+                {cart.map((item: any, index: number) =>
                     <div className="parent">
-                    <IoTrashOutline size="1.5rem" className="icon" onClick={() => console.log('clicked')} />
+                    <IoTrashOutline size="1.5rem" className="icon" onClick={() => onRemoveGame(item.id)} />
                     <ColoredBar bgc={item.color} />
                     <BetCard>
                         <p className="numbersBet">{item.numbers}</p>
