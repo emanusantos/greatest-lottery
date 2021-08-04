@@ -157,6 +157,7 @@ const NewBet: React.FC = () => {
     const handleCleanUp = () => {
         setToCart([]);
         total = Number(0);
+        setChoseNumbers([]);
     }
 
     return (
