@@ -5,6 +5,7 @@ import Footer from '../../components/Footer';
 import { Input } from '../../components/Input';
 import { useAppDispatch } from '../../hooks/reduxhooks';
 import { register, logRegisteredUser } from '../../store/regSlice';
+import { Link } from 'react-router-dom';
 
 const Signup: React.FC = () => {
 
@@ -55,7 +56,7 @@ const Signup: React.FC = () => {
                         <Input type="text" placeholder="Password" onChange={e => setPasswordReg(e.target.value)} value={passwordReg} />
                         <button>Register ➝</button>
                     </Form>
-                    <H3 id="signup">← Back</H3>
+                    <H3 id="signup"><Link to="/login">← Back</Link></H3>
                 </Container>
             </Container>
             <Footer />

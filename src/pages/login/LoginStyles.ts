@@ -50,6 +50,11 @@ export const Container = styled.div<Props>`
     text-align: center;
     font-style: italic;
 
+    a {
+        text-decoration: none;
+        color: #707070;
+    }
+
     #signup {
         cursor: pointer;
 

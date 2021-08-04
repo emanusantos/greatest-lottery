@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const StyledHomeHeader = styled.div`
+export const StyledHomeHeader = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
@@ -72,6 +71,11 @@ const StyledHomeHeader = styled.div`
         font-size: 1.5rem;
     }
 
+    a {
+        text-decoration: none;
+        color: #B5C401;
+    }
+
     #newbet {
         color: #B5C401;
         cursor: pointer;
@@ -82,20 +86,3 @@ const StyledHomeHeader = styled.div`
         }
     }
 `;
-
-const HomeHeader = () => {
-    return (
-        <StyledHomeHeader>
-            <h4>RECENT GAMES</h4>
-            <div className="filters">
-                <p>Filters</p>
-                <button id="Lotofácil">Lotofácil</button>
-                <button id="Mega-Sena">Mega-Sena</button>
-                <button id="Quina">Quina</button>
-            </div>
-            <h4 id="newbet">New Bet ➝</h4>
-        </StyledHomeHeader>
-    );
-};
-
-export default HomeHeader;

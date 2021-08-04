@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 import { BetContainer, GameTypeButton } from './NewBetStyles';
 import CartArea from '../../components/CartArea/CartArea';
 import { Game, GameButtons, BetButton, AddButton } from '../../components/GameArea/GameAreaStyles';

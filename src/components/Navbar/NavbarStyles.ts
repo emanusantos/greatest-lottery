@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
     border-bottom: 2px solid #EBEBEB;
     color: #707070;
 
@@ -23,10 +23,15 @@ const Wrapper = styled.div`
         h1, h4 {
             cursor: pointer;
         }
+
+        a {
+            text-decoration: none;
+            color: #707070;
+        }
     }
 `;
 
-const Underline = styled.div`
+export const Underline = styled.div`
     position: absolute;
     top: 3.1rem;
     left: 8.6rem;
@@ -35,25 +40,3 @@ const Underline = styled.div`
     background-color: #B5C401;
     border-radius: .4rem;
 `;
-
-const Navbar = () => {
-    return (
-        <header>
-            <Wrapper>
-                <ul>
-                    <li>
-                        <h1>TGL</h1>
-                        <h4>Home</h4>
-                    </li>
-                    <li>
-                        <h4>Account</h4>
-                        <h4>Log out </h4>
-                    </li>
-                </ul>
-            </Wrapper>
-            <Underline />
-        </header>
-    );
-};
-
-export default Navbar;

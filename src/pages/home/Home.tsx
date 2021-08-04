@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 import { Container } from '../login/LoginStyles';
-import HomeHeader from '../../components/HomeHeader';
+import HomeHeader from '../../components/HomeHeader/HomeHeader';
 import Footer from '../../components/Footer';
 
 const Home: React.FC = () => {

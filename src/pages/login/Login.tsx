@@ -3,6 +3,7 @@ import { Container, Form, H3 } from "./LoginStyles";
 import { Input } from "../../components/Input";
 import GreatestApp from "../../components/GreatestApp";
 import Footer from "../../components/Footer";
+import { Link } from "react-router-dom";
 
 const Login: React.FC = () => {
 
@@ -53,7 +54,7 @@ const Login: React.FC = () => {
                     <a href="/#">I forgot my password</a>
                     <button>Log In ➝</button>
                 </Form>
-                <H3 id="signup">Sign Up ➝</H3>
+                <H3 id="signup"><Link to="/signup">Sign Up ➝</Link></H3>
             </Container>
         </Container>
         <Footer>Copyright 2021  Luby Software</Footer>
