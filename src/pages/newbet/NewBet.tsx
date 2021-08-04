@@ -154,6 +154,11 @@ const NewBet: React.FC = () => {
         return setToCart(newCart);
     };
 
+    const handleCleanUp = () => {
+        setToCart([]);
+        total = Number(0);
+    }
+
     return (
         <>
             <Navbar />
@@ -204,7 +209,7 @@ const NewBet: React.FC = () => {
                     <AddButton onClick={addItemToCart} id="add">Add to cart</AddButton>
                 </div>}
             </Game>
-                <CartArea cart={toCart} onRemoveGame={removeGame} total={total} />
+                <CartArea cart={toCart} onRemoveGame={removeGame} total={total} handleCleanUp={handleCleanUp} />
             </BetContainer>
         </>
     );

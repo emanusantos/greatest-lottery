@@ -2,15 +2,20 @@ import React from 'react';
 import { CartContainer } from './CartAreaStyles';
 import { IoTrashOutline } from 'react-icons/io5';
 import { ColoredBar, BetCard, BetGameType } from './CartAreaStyles';
+import { useAppDispatch } from '../../hooks/reduxhooks';
+import { saveCartBets } from '../../store/cartSlice';
 
-const CartArea = ({ cart, onRemoveGame, total }: { cart: any, onRemoveGame: any, total: number}): React.ReactElement => {
+const CartArea = ({ cart, onRemoveGame, total, handleCleanUp }: { cart: any, onRemoveGame: any, total: number, handleCleanUp: any}): React.ReactElement => {
+
+    const dispatch = useAppDispatch();
 
     const handleSave = () => {
         if (total < 30) {
             return;
         };
         console.log(cart);
-
+        dispatch(saveCartBets(cart));
+        handleCleanUp();
     };
 
     return (

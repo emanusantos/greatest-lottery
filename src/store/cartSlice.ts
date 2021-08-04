@@ -10,17 +10,19 @@ export interface Games {
     'min-cart-value': number;
 }
 
+const initialState: { savedGames: any } = { savedGames: [] }
 
 
 const cartSlice = createSlice({
     name: 'game',
-    initialState: {cart: []},
+    initialState: initialState,
     reducers: {
-        setCurrentGame(state) {
-
+        saveCartBets: (state, action) => {
+            state.savedGames.push(...action.payload);
+            console.log(state.savedGames);
         }
     }
 })
 
-export const gameActions = cartSlice.actions;
+export const { saveCartBets } = cartSlice.actions;
 export const gameReducers = cartSlice.reducer;
