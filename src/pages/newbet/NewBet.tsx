@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Navbar from '../../components/Navbar';
-import { BetContainer } from './NewBetStyles';
+import { BetContainer, GameTypeButton } from './NewBetStyles';
 import CartArea from '../../components/CartArea/CartArea';
 import { Game, GameButtons, BetButton, AddButton } from '../../components/GameArea/GameAreaStyles';
 import SelectedNumbers from '../../components/SelectedNumber/SelectedNumber';
@@ -124,7 +124,7 @@ const NewBet: React.FC = () => {
         let display = '';
         choseNumbers.sort((a: number, b: number) => a - b).forEach((item: number, index: number) => {
             if (index !== choseNumbers.length - 1) {
-                display += `${item}, `
+                display += `${item < 10 ? `0${item}` : item}, `
             } else {
                 display += item
             }
@@ -153,12 +153,27 @@ const NewBet: React.FC = () => {
                 <p id="newbet"><strong>NEW BET</strong> {checker() && `FOR ${game.type.toUpperCase()}`}</p>
                 <p><strong>Choose a game</strong></p>
                 <GameButtons>
-                    {Data.types.map((button) => 
-                    <button
-                    key={button.type}
-                    className={button.type}
-                    onClick={e => updateGameType(e.currentTarget.value)}
-                    value={button.type}>{button.type}</button>)}
+                    {Data.types.map((button) => {
+                        let color = button.color
+                        let bgc = '#fff';
+                        let border = color;
+                        if (game.type === button.type) {
+                            bgc = color;
+                            color = '#fff';
+                            border = '#fff';
+                        }
+
+                        return (
+                            <GameTypeButton
+                            color={color}
+                            bgc={bgc}
+                            border={`.15rem solid ${border}`}
+                            key={button.type}
+                            className={button.type}
+                            onClick={e => updateGameType(e.currentTarget.value)}
+                            value={button.type}>{button.type}</GameTypeButton>
+                        )
+                    })}
                 </GameButtons>
                 {checker() && <div className="descriptionArea">
                     <p><strong>Fill your bet</strong></p>
@@ -168,9 +183,9 @@ const NewBet: React.FC = () => {
                     {currentGameRange.map(button => {
                         let selected = false;
                         if (choseNumbers.includes(button)) selected = true
-                        console.log(selected);
+                        let bgc = selected ? game.color : '#ADC0C4'
                         return (
-                            <SelectedNumbers bgc={selected} clicked={selectNumber} number={button} key={button} />
+                            <SelectedNumbers bgc={bgc} clicked={selectNumber} number={button} key={button} />
                         )
                     })}
                 </div>}

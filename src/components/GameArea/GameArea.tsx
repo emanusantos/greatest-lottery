@@ -164,7 +164,7 @@ const GameArea: React.FC = () => {
                     if (choseNumbers?.includes(button)) selected = true
                     console.log(selected);
                     return (
-                        <SelectedNumbers bgc={selected} clicked={selectNumber} number={button} key={button} />
+                        <SelectedNumbers bgc='oia' clicked={selectNumber} number={button} key={button} />
                     )
                 })}
             </div>}

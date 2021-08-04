@@ -2,7 +2,7 @@ import React from 'react'
 import { SelectedNumber } from "./SelectedNumberStyles";
 
 interface SelectedNumberProps {
-    bgc: boolean;
+    bgc: string;
     number: number;
     clicked: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }

@@ -36,6 +36,7 @@ export const CartContainer = styled.div`
 
     .cartItem {
         padding: 1rem;
+        transition-duration: 2s;
     }
 
     .numbersBet {
@@ -49,6 +50,11 @@ export const CartContainer = styled.div`
 
         .icon {
             cursor: pointer;
+
+            &:hover {
+                filter: brightness(1.2);
+                transition-duration: .2s;
+            }
         }
 
         .nameAndPrice {
