@@ -28,7 +28,6 @@ const Login: React.FC = () => {
         setPassword('');
     };
 
-
     const formHandler = (event: React.SyntheticEvent) => {
         event.preventDefault();
 
@@ -36,13 +35,20 @@ const Login: React.FC = () => {
             return;
         };
 
-        console.log(email, password);
+        const emailAuth = users.find((user: any) => user.email === email);
+        const passwordAuth = users.find((user: any) => user.password === password);
 
-        if (email === users[0].email && password === users[0].password) {
-            dispatch(currentUser(users[0]));
-            history.push('/');
-        } else {
+        console.log(email, password);
+        console.log(emailAuth, passwordAuth);
+        
+
+        if (emailAuth === undefined || passwordAuth === undefined) {
             return alert('Invalid email/password combination');
+        } else {
+            let index = users.findIndex((user: any) => user.email === email);
+            console.log(index);
+            dispatch(currentUser(users[index]));
+            history.push('/');
         }
 
         emailResetter();

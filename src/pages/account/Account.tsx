@@ -28,6 +28,9 @@ const ModalWrapper = styled.div`
 const Account: React.FC = () => {
     const [modal, setModal] = useState(false);
 
+    const arr = [1, 2, 3, 4, 5];
+    console.log(arr.find(el => el > 4));
+
     const openModal = () => {
         setModal(prev => !prev);
     };

@@ -27,4 +27,4 @@ const cartSlice = createSlice({
 
 export const selectBets = (state: RootState) => state.games.savedGames;
 export const { saveCartBets } = cartSlice.actions;
-export const gameReducers = cartSlice.reducer;
+export const gameReducer = cartSlice.reducer;
