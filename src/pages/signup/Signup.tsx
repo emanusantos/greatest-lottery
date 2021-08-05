@@ -4,8 +4,8 @@ import { Container, Form, H3 } from '../login/LoginStyles';
 import Footer from '../../components/Footer';
 import { Input } from '../../components/Input';
 import { useAppDispatch } from '../../hooks/reduxhooks';
-import { register, logRegisteredUser } from '../../store/regSlice';
-import { Link } from 'react-router-dom';
+import { register, currentUser } from '../../store/regSlice';
+import { Link, useHistory } from 'react-router-dom';
 
 const Signup: React.FC = () => {
 
@@ -14,6 +14,7 @@ const Signup: React.FC = () => {
     const [passwordReg, setPasswordReg] = useState<string>('');
 
     const dispatch = useAppDispatch();
+    const history = useHistory();
 
     const nameResetter = () => {
         setNameReg('');
@@ -36,12 +37,13 @@ const Signup: React.FC = () => {
         };
 
         console.log(nameReg, emailReg, passwordReg);
-        dispatch(register({name: nameReg, email: emailReg, password: passwordReg}))
-        dispatch(logRegisteredUser({name: nameReg, email: emailReg, password: passwordReg}))
+        dispatch(register({name: nameReg, email: emailReg, password: passwordReg}));
+        dispatch(currentUser({name: nameReg, email: emailReg, password: passwordReg}));
 
         nameResetter();
         emailResetter();
         passwordResetter();
+        history.push('/');
     };
 
     return (

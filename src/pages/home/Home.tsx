@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import { Container } from '../login/LoginStyles';
 import HomeHeader from '../../components/HomeHeader/HomeHeader';
@@ -7,11 +7,25 @@ import { useAppSelector } from '../../hooks/reduxhooks';
 import { selectBets } from '../../store/cartSlice';
 import { BetCard, ColoredBar, BetGameType } from '../../components/CartArea/CartAreaStyles';
 import { Parent } from './HomeStyles';
+import { useHistory } from 'react-router';
+import { currentLoggedUser } from '../../store/regSlice';
 
 const Home: React.FC = () => {
 
+    const history = useHistory();
+    const selectedCurrentUser = useAppSelector(currentLoggedUser)
+
+    useEffect(() => {
+        userCheck();
+    });
+
+    const userCheck = () => {
+        if (!selectedCurrentUser) {
+            history.push('/login')
+        }
+    };
+
     const currentBets = useAppSelector(selectBets);
-    console.log(currentBets);
 
     return (
         <>

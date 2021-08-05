@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import { BetContainer, GameTypeButton } from './NewBetStyles';
 import CartArea from '../../components/CartArea/CartArea';
@@ -7,11 +7,29 @@ import SelectedNumbers from '../../components/SelectedNumber/SelectedNumber';
 import Data from '../../games.json';
 import { Games } from '../../store/cartSlice';
 import { IoCartOutline } from 'react-icons/io5';
+import { currentLoggedUser } from '../../store/regSlice';
+import { useAppSelector } from '../../hooks/reduxhooks';
+import { useHistory } from 'react-router-dom';
 
 let currentGameRange: number[] = [];
 let total = Number(0);
 
 const NewBet: React.FC = () => {
+
+    const history = useHistory();
+    const selectedCurrentUser = useAppSelector(currentLoggedUser)
+
+    useEffect(() => {
+        userCheck();
+    });
+
+    const userCheck = () => {
+        if (!selectedCurrentUser) {
+            history.push('/login')
+        }
+    };
+
+
 
     const [game, setGame] = useState<Games>({
         type: '', 

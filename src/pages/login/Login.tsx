@@ -4,8 +4,18 @@ import { Input } from "../../components/Input";
 import GreatestApp from "../../components/GreatestApp";
 import Footer from "../../components/Footer";
 import { Link } from "react-router-dom";
+import { selectUsers } from "../../store/regSlice";
+import { useAppSelector } from "../../hooks/reduxhooks";
+import { useAppDispatch } from "../../hooks/reduxhooks";
+import { currentUser } from "../../store/regSlice";
+import { useHistory } from "react-router";
 
 const Login: React.FC = () => {
+
+    const history = useHistory();
+    const dispatch = useAppDispatch();
+    const users = useAppSelector(selectUsers);
+    console.log(users);
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -26,7 +36,14 @@ const Login: React.FC = () => {
             return;
         };
 
-        console.log(email, password)
+        console.log(email, password);
+
+        if (email === users[0].email && password === users[0].password) {
+            dispatch(currentUser(users[0]));
+            history.push('/');
+        } else {
+            return alert('Invalid email/password combination');
+        }
 
         emailResetter();
         passwordResetter();

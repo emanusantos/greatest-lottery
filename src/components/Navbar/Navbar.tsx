@@ -1,7 +1,20 @@
 import { Link } from "react-router-dom";
 import { Wrapper, Underline } from "./NavbarStyles";
+import { useAppDispatch } from "../../hooks/reduxhooks";
+import { currentUser } from "../../store/regSlice";
+import { useHistory } from "react-router";
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
+
+    const dispatch = useAppDispatch();
+    const history = useHistory();
+    
+    const logoutHandler = () => {
+        console.log('clicked');
+        dispatch(currentUser(null));
+        history.push('/login');
+    };
+
     return (
         <header>
             <Wrapper>
@@ -12,7 +25,7 @@ const Navbar = () => {
                     </li>
                     <li>
                         <h4><Link to="/account">Account</Link></h4>
-                        <h4><Link to="/login">Log out</Link></h4>
+                        <h4 onClick={logoutHandler}>Log out</h4>
                     </li>
                 </ul>
             </Wrapper>
