@@ -37,7 +37,7 @@ const Login: React.FC = () => {
         <Container jc="space-evenly" ai="space-around" mt="5rem">
             <GreatestApp />
             <Container fd="column" mw="22rem">
-                <H3>Authentication</H3>
+                <H3 className="center">Authentication</H3>
                 <Form onSubmit={formHandler}>
                     <Input type="email" 
                         placeholder="Email" 
@@ -51,10 +51,10 @@ const Login: React.FC = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
-                    <a href="/#">I forgot my password</a>
+                    <Link to="/recover">I forgot my password</Link>
                     <button>Log In ➝</button>
                 </Form>
-                <H3 id="signup"><Link to="/signup">Sign Up ➝</Link></H3>
+                <H3 id="signup" className="center"><Link to="/signup">Sign Up ➝</Link></H3>
             </Container>
         </Container>
         <Footer>Copyright 2021  Luby Software</Footer>

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "./store";
 
 export interface Games {
     type: string; 
@@ -24,5 +25,6 @@ const cartSlice = createSlice({
     }
 })
 
+export const selectBets = (state: RootState) => state.games.savedGames;
 export const { saveCartBets } = cartSlice.actions;
 export const gameReducers = cartSlice.reducer;

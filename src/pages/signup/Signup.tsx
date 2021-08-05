@@ -49,14 +49,14 @@ const Signup: React.FC = () => {
             <Container jc="space-evenly" ai="space-around" mt="5rem">
                 <GreatestApp />
                 <Container fd="column" mw="22rem">
-                    <H3>Registration</H3>
+                    <H3 className="center">Registration</H3>
                     <Form onSubmit={formHandler}>
                         <Input type="text" placeholder="Name" id="radius" onChange={e => setNameReg(e.target.value)} value={nameReg} />
                         <Input type="email" placeholder="Email" onChange={e => setEmailReg(e.target.value)} value={emailReg} />
-                        <Input type="text" placeholder="Password" onChange={e => setPasswordReg(e.target.value)} value={passwordReg} />
+                        <Input type="password" placeholder="Password" onChange={e => setPasswordReg(e.target.value)} value={passwordReg} />
                         <button>Register ➝</button>
                     </Form>
-                    <H3 id="signup"><Link to="/login">← Back</Link></H3>
+                    <H3 id="signup" className="center"><Link to="/login">← Back</Link></H3>
                 </Container>
             </Container>
             <Footer />

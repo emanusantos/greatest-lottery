@@ -16,6 +16,16 @@ export const Game = styled.div`
         padding-top: .7rem;
         font-size: 1.3rem;
     }
+
+    .cartIcon {
+        color: #fff;
+        align-self: center;
+    }
+
+    .buttonsArea {
+        display: flex;
+        gap: 5rem;
+    }
 `;
 
 export const GameButtons = styled.div`
@@ -46,9 +56,10 @@ export const BetButton = styled.button<BetButtonProps>`
 `
 
 export const AddButton = styled.button`
-    width: 13rem;
-    height: 3.25rem;
-    margin-left: 4rem;
+    display: flex;
+    padding: 0 2rem;
+    gap: 1rem;
+    align-items: center;
     background-color: #27C383;
     color: #fff;
     border: 1px solid #27C383;

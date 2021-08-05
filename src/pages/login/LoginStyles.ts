@@ -47,8 +47,11 @@ export const Container = styled.div<Props>`
     justify-content: ${props => props.jc};
     margin-top: ${props => props.mt};
     background-color: ${props => props.bgc};
-    text-align: center;
     font-style: italic;
+
+    .center {
+        text-align: center;
+    }
 
     a {
         text-decoration: none;

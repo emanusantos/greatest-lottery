@@ -6,6 +6,7 @@ import { Game, GameButtons, BetButton, AddButton } from '../../components/GameAr
 import SelectedNumbers from '../../components/SelectedNumber/SelectedNumber';
 import Data from '../../games.json';
 import { Games } from '../../store/cartSlice';
+import { IoCartOutline } from 'react-icons/io5';
 
 let currentGameRange: number[] = [];
 let total = Number(0);
@@ -205,9 +206,11 @@ const NewBet: React.FC = () => {
                     })}
                 </div>}
                 {checker() && <div className="buttonsArea">
-                    <BetButton onClick={getRandomGame} width="10rem" id="complete">Complete game</BetButton>
-                    <BetButton onClick={clearGame} width="8.5rem" id="clear">Clear game</BetButton>
-                    <AddButton onClick={addItemToCart} id="add">Add to cart</AddButton>
+                    <div>
+                        <BetButton onClick={getRandomGame} width="10rem" id="complete">Complete game</BetButton>
+                        <BetButton onClick={clearGame} width="8.5rem" id="clear">Clear game</BetButton>
+                    </div>
+                    <AddButton onClick={addItemToCart} id="add"><IoCartOutline size="1.5rem" className="cartIcon" />Add to cart</AddButton>
                 </div>}
             </Game>
                 <CartArea cart={toCart} onRemoveGame={removeGame} total={total} handleCleanUp={handleCleanUp} />

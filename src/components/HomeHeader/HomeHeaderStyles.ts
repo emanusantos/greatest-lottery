@@ -4,9 +4,12 @@ export const StyledHomeHeader = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
-    margin-left: 3.5rem;
-    padding: 5rem 10rem 5rem 5rem;
     justify-content: space-between;
+    padding-bottom: 1.5rem;
+
+    h4 {
+        margin-left: .5rem;
+    }
 
     .filters {
         display: flex;
