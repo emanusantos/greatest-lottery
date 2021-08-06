@@ -39,7 +39,6 @@ const Login: React.FC = () => {
         const passwordAuth = users.find((user: any) => user.password === password);
 
         console.log(email, password);
-        console.log(emailAuth, passwordAuth);
         
 
         if (emailAuth === undefined || passwordAuth === undefined) {

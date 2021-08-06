@@ -16,7 +16,7 @@ export const StyledModal = styled.div`
     left: 30%;
     width: 40%;
     background-color: white;
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 14px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     z-index: 30;

@@ -10,7 +10,6 @@ const Navbar: React.FC = () => {
     const history = useHistory();
     
     const logoutHandler = () => {
-        console.log('clicked');
         dispatch(currentUser(null));
         history.push('/login');
     };

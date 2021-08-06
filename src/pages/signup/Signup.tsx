@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GreatestApp from '../../components/GreatestApp';
 import { Container, Form, H3 } from '../login/LoginStyles';
 import Footer from '../../components/Footer';
 import { Input } from '../../components/Input';
 import { useAppDispatch } from '../../hooks/reduxhooks';
-import { register, currentUser } from '../../store/regSlice';
+import { register } from '../../store/regSlice';
 import { Link, useHistory } from 'react-router-dom';
+import Modal from '../../components/Modal/Modal';
 
 const Signup: React.FC = () => {
 
     const [nameReg, setNameReg] = useState<string>('');
     const [emailReg, setEmailReg] = useState<string>('');
     const [passwordReg, setPasswordReg] = useState<string>('');
+    const [modal, setModal] = useState<boolean>(false);
 
     const dispatch = useAppDispatch();
     const history = useHistory();
@@ -28,6 +30,10 @@ const Signup: React.FC = () => {
         setPasswordReg('');
     };
 
+    const showModalHandler = () => {
+        setModal(!modal);
+    };
+
 
     const formHandler = (event: React.SyntheticEvent) => {
         event.preventDefault();
@@ -37,13 +43,12 @@ const Signup: React.FC = () => {
         };
 
         console.log(nameReg, emailReg, passwordReg);
-        dispatch(register({name: nameReg, email: emailReg, password: passwordReg}));
-        dispatch(currentUser({name: nameReg, email: emailReg, password: passwordReg}));
+        dispatch(register({name: nameReg, email: emailReg, password: passwordReg, games: []}));
+        setModal(true);
 
         nameResetter();
         emailResetter();
         passwordResetter();
-        history.push('/');
     };
 
     return (
@@ -61,6 +66,9 @@ const Signup: React.FC = () => {
                     <H3 id="signup" className="center"><Link to="/login">← Back</Link></H3>
                 </Container>
             </Container>
+            {modal && <Modal onClose={showModalHandler}>
+                <p>You've signed up successfully. <Link to="/login">Click here</Link> to log in with your brand-new credentials!</p>
+            </Modal>}
             <Footer />
         </>
     );

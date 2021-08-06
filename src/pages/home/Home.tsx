@@ -8,7 +8,7 @@ import { selectBets } from '../../store/cartSlice';
 import { BetCard, ColoredBar, BetGameType } from '../../components/CartArea/CartAreaStyles';
 import { Parent } from './HomeStyles';
 import { useHistory } from 'react-router';
-import { currentLoggedUser } from '../../store/regSlice';
+import { currentLoggedUser, currentUserGames } from '../../store/regSlice';
 
 const Home: React.FC = () => {
 
@@ -25,7 +25,7 @@ const Home: React.FC = () => {
         }
     };
 
-    const currentBets = useAppSelector(selectBets);
+    const currentBets = useAppSelector(currentUserGames);
 
     return (
         <>

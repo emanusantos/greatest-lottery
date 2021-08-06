@@ -2,19 +2,26 @@ import React from 'react';
 import { CartContainer } from './CartAreaStyles';
 import { IoTrashOutline } from 'react-icons/io5';
 import { ColoredBar, BetCard, BetGameType } from './CartAreaStyles';
-import { useAppDispatch } from '../../hooks/reduxhooks';
-import { saveCartBets } from '../../store/cartSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxhooks';
+import { currentLoggedUser, selectUsers, saveUserGames, mergeGames } from '../../store/regSlice';
+
 
 const CartArea = ({ cart, onRemoveGame, total, handleCleanUp }: { cart: any, onRemoveGame: any, total: number, handleCleanUp: any}): React.ReactElement => {
 
+
     const dispatch = useAppDispatch();
+    const currUser = useAppSelector(currentLoggedUser);
+    const users = useAppSelector(selectUsers);
 
     const handleSave = () => {
         if (total < 30) {
             return;
         };
         console.log(cart);
-        dispatch(saveCartBets(cart));
+        dispatch(saveUserGames(cart));
+        let index = users.findIndex((user: any) => user.email === currUser.email);
+        console.log(index);
+        dispatch(mergeGames({index: index, arr: cart}));
         handleCleanUp();
     };
 

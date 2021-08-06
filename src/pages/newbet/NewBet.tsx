@@ -10,6 +10,7 @@ import { IoCartOutline } from 'react-icons/io5';
 import { currentLoggedUser } from '../../store/regSlice';
 import { useAppSelector } from '../../hooks/reduxhooks';
 import { useHistory } from 'react-router-dom';
+import Footer from '../../components/Footer';
 
 let currentGameRange: number[] = [];
 let total = Number(0);
@@ -233,6 +234,7 @@ const NewBet: React.FC = () => {
             </Game>
                 <CartArea cart={toCart} onRemoveGame={removeGame} total={total} handleCleanUp={handleCleanUp} />
             </BetContainer>
+            <Footer />
         </>
     );
 };

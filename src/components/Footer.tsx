@@ -3,9 +3,12 @@ import styled from 'styled-components';
 
 
 const StyledFooter = styled.footer`
+    clear: both;
+    position: relative;
+    height: 4rem;
+    margin-top: 46vh;
     padding: 1rem 0;
     text-align: center;
-    margin-top: 3.2rem;
     color: #C2C2C2;
     font-size: .7rem;
     border-top: #C2C2C2;

@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import { StyledModal, StyledBackdrop } from './ModalStyles';
 
 const Backdrop = ({ onClose }: { onClose: any }) => {
-    return <StyledBackdrop onClick={() => onClose} />;
+    return <StyledBackdrop onClick={onClose} />;
 };
   
 const ModalOverlay = ({ children }: { children: any }) => {
