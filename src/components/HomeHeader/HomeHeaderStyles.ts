@@ -23,6 +23,12 @@ export const StyledHomeHeader = styled.div`
 
         p {
             color: #C1C1C1;
+            cursor: pointer;
+
+            &:hover {
+                filter: brightness(1.1);
+                transition-duration: .2s;
+            }
         }
 
         #Lotofácil, #Mega-Sena, #Quina {

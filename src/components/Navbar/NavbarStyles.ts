@@ -27,6 +27,11 @@ export const Wrapper = styled.div`
         a {
             text-decoration: none;
             color: #707070;
+
+            &:hover {
+                filter: brightness(1.2);
+                transition-duration: .2s;
+            }
         }
     }
 `;

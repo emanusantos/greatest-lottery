@@ -41,7 +41,7 @@ const Home: React.FC = () => {
             <StyledHomeHeader>
                 <h4>RECENT GAMES</h4>
                 <div className="filters">
-                    <p>Filters</p>
+                    <p onClick={() => setFilters(null)}>Filters</p>
                     {Data.types.map((button) => {
                         let color = button.color
                         let bgc = '#fff';
