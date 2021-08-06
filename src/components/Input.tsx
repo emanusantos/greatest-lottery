@@ -28,6 +28,7 @@ interface InputProps {
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
     id?: string;
     value?: any;
+    name?: any;
 }
 
 export const Input: React.FC<InputProps> = (props) => {

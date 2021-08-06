@@ -7,7 +7,7 @@ import { currentLoggedUser } from '../../store/regSlice';
 import Footer from '../../components/Footer';
 import { ProfileInfo } from './AccountStyles';
 import { BsPencilSquare } from 'react-icons/bs';
-import { AiOutlineArrowDown, AiOutlineEnter, AiOutlineCheckCircle } from 'react-icons/ai';
+import { AiOutlineArrowDown, AiOutlineCheckCircle } from 'react-icons/ai';
 import { Form } from '../login/LoginStyles';
 import { Input } from '../../components/Input';
 
@@ -17,10 +17,14 @@ const Account: React.FC = () => {
 
     const [modal, setModal] = useState(false);
     const [changePass, setChangePass] = useState(false);
-    const [newPass, setNewPass] = useState('');
-    const [confirm, setConfirm] = useState('');
     const [editName, setEditName] = useState(false);
     const [editEmail, setEditEmail] = useState(false);
+    const [userCredentials, setUserCredentials] = useState({
+        name: '',
+        email: '',
+        pass: '',
+        passconf: ''
+    })
 
     const editNameHandler = () => {
         return setEditName(!editName);
@@ -28,6 +32,11 @@ const Account: React.FC = () => {
 
     const editEmailHandler = () => {
         return setEditEmail(!editEmail);
+    };
+
+    const handleChange = (e: any) => {
+        const target = e.target;
+        setUserCredentials({...userCredentials, [target.id]: target.value});
     };
 
     const showModalHandler = () => {
@@ -47,22 +56,23 @@ const Account: React.FC = () => {
                     
                         <p><strong>Name:</strong> {userSelector.name}<BsPencilSquare onClick={editNameHandler} className="editIcon" /></p>
                     {editName && <div className="nameEdit">
-                        <Input type="text" placeholder="Edit your name" />
+                        <Input id="name" type="text" placeholder="Edit your name" onChange={e => handleChange(e)} value={userCredentials.name} />
                         <button className="confirmEdit"><AiOutlineCheckCircle /></button>
                     </div>}
 
                     
                         <p><strong>Email:</strong> {userSelector.email}<BsPencilSquare onClick={editEmailHandler} className="editIcon" /></p>
                     {editEmail && <div className="emailEdit">
-                        <Input type="email" placeholder="Edit your email" />
-                        <button className="confirmEdit"><AiOutlineCheckCircle /></button>
+                            <Input id="email" type="email" placeholder="Edit your email" onChange={e => handleChange(e)} value={userCredentials.email} />
+                            <button className="confirmEdit"><AiOutlineCheckCircle /></button>
+                        
                     </div>}
                     
                     
                     <p id="changePassword" onClick={changePassHandler}><strong>Change password</strong> <AiOutlineArrowDown /></p>
                     {changePass && <Form className="changeForm">
-                        <Input id="enter" type="password" onChange={() => setNewPass} placeholder="Enter your new password" />
-                        <Input id="confirm" type="password" onChange={() => setConfirm} placeholder="Confirm your password" />
+                        <Input id="pass" type="password" onChange={e => handleChange(e)} placeholder="Enter your new password" value={userCredentials.pass} />
+                        <Input id="passconf" type="password" onChange={e => handleChange(e)} placeholder="Confirm your password" value={userCredentials.passconf} />
                         <button>Change</button>
                     </Form>}
                 </ProfileInfo>

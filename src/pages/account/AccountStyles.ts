@@ -10,6 +10,7 @@ export const ProfileInfo = styled.div`
     .editIcon {
         margin-left: .5rem;
         cursor: pointer;
+        color: #B5C401;
     }
 
     #changePassword {
@@ -28,7 +29,7 @@ export const ProfileInfo = styled.div`
         flex-direction: column;
         border-radius: 1rem;
 
-        #enter {
+        #pass {
             border-radius: 1rem 1rem 0 0;
         }
     }
@@ -55,6 +56,7 @@ export const ProfileInfo = styled.div`
         border-top: none;
         border-radius: 0 .8rem .8rem 0;
         cursor: pointer;
+        color: #B5C401;
 
         &:hover {
             background-color: #B5C401;
