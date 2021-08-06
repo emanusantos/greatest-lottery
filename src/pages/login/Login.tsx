@@ -9,6 +9,8 @@ import { useAppSelector } from "../../hooks/reduxhooks";
 import { useAppDispatch } from "../../hooks/reduxhooks";
 import { currentUser } from "../../store/regSlice";
 import { useHistory } from "react-router";
+import { VscError } from 'react-icons/vsc';
+import Modal from "../../components/Modal/Modal";
 
 const Login: React.FC = () => {
 
@@ -19,6 +21,7 @@ const Login: React.FC = () => {
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [error, setError] = useState(false);
 
     const emailResetter = () => {
         setEmail('');
@@ -27,6 +30,10 @@ const Login: React.FC = () => {
     const passwordResetter = () => {
         setPassword('');
     };
+
+    const errorHandler = () => {
+        setError(!error);
+    }
 
     const formHandler = (event: React.SyntheticEvent) => {
         event.preventDefault();
@@ -42,7 +49,7 @@ const Login: React.FC = () => {
         
 
         if (emailAuth === undefined || passwordAuth === undefined) {
-            return alert('Invalid email/password combination');
+            errorHandler();
         } else {
             let index = users.findIndex((user: any) => user.email === email);
             console.log(index);
@@ -80,6 +87,15 @@ const Login: React.FC = () => {
             </Container>
         </Container>
         <Footer>Copyright 2021  Luby Software</Footer>
+        {error && <Modal onClose={errorHandler}>
+            <div className="errorHeader">
+                <h2 onClick={errorHandler}><VscError /></h2>
+            </div>
+            <div className="errorText">
+                <p>Wrong email/password combination!</p>
+                <button onClick={errorHandler}>Try again</button>
+            </div>
+        </Modal>}
         </>
     );
 };
