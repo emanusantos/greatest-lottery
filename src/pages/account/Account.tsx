@@ -7,7 +7,7 @@ import { currentLoggedUser } from '../../store/regSlice';
 import Footer from '../../components/Footer';
 import { ProfileInfo } from './AccountStyles';
 import { BsPencilSquare } from 'react-icons/bs';
-import { AiOutlineArrowDown } from 'react-icons/ai';
+import { AiOutlineArrowDown, AiOutlineEnter, AiOutlineCheckCircle } from 'react-icons/ai';
 import { Form } from '../login/LoginStyles';
 import { Input } from '../../components/Input';
 
@@ -19,6 +19,16 @@ const Account: React.FC = () => {
     const [changePass, setChangePass] = useState(false);
     const [newPass, setNewPass] = useState('');
     const [confirm, setConfirm] = useState('');
+    const [editName, setEditName] = useState(false);
+    const [editEmail, setEditEmail] = useState(false);
+
+    const editNameHandler = () => {
+        return setEditName(!editName);
+    };
+
+    const editEmailHandler = () => {
+        return setEditEmail(!editEmail);
+    };
 
     const showModalHandler = () => {
         setModal(!modal);
@@ -34,8 +44,21 @@ const Account: React.FC = () => {
             <Container padding="3rem 8.5rem" fd="column">
                 <h3 id="profile">{userSelector.name.toUpperCase()}'S PROFILE:</h3>
                 <ProfileInfo>
-                    <p><strong>Name:</strong> {userSelector.name}<BsPencilSquare className="editIcon" /></p>
-                    <p><strong>Email:</strong> {userSelector.email}<BsPencilSquare className="editIcon" /></p>
+                    
+                        <p><strong>Name:</strong> {userSelector.name}<BsPencilSquare onClick={editNameHandler} className="editIcon" /></p>
+                    {editName && <div className="nameEdit">
+                        <Input type="text" placeholder="Edit your name" />
+                        <button className="confirmEdit"><AiOutlineCheckCircle /></button>
+                    </div>}
+
+                    
+                        <p><strong>Email:</strong> {userSelector.email}<BsPencilSquare onClick={editEmailHandler} className="editIcon" /></p>
+                    {editEmail && <div className="emailEdit">
+                        <Input type="email" placeholder="Edit your email" />
+                        <button className="confirmEdit"><AiOutlineCheckCircle /></button>
+                    </div>}
+                    
+                    
                     <p id="changePassword" onClick={changePassHandler}><strong>Change password</strong> <AiOutlineArrowDown /></p>
                     {changePass && <Form className="changeForm">
                         <Input id="enter" type="password" onChange={() => setNewPass} placeholder="Enter your new password" />

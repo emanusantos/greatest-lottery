@@ -32,4 +32,34 @@ export const ProfileInfo = styled.div`
             border-radius: 1rem 1rem 0 0;
         }
     }
+
+    .nameEdit, .emailEdit {
+        display: flex;
+        align-items: center;
+    }
+
+    .nameEdit p, .emailEdit p {
+        padding-bottom: 1rem;
+    }
+
+    .nameEdit input, .emailEdit input {
+        max-width: 20rem;
+        border-radius: 1rem 0 0 1rem;
+    }
+
+    .confirmEdit {
+        padding: 1.45rem;
+        background-color: #fff;
+        border: 2px solid #EBEBEB;
+        border-left: none;
+        border-top: none;
+        border-radius: 0 .8rem .8rem 0;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #B5C401;
+            color: #fff;
+            transition-duration: .4s;
+        }
+    }
 `;
