@@ -49,6 +49,15 @@ export const Container = styled.div<Props>`
     background-color: ${props => props.bgc};
     font-style: italic;
 
+    #noBet {
+        padding-top: 5rem;
+        text-align: center;
+
+        a {
+            color: #B5C401;
+        }
+    }
+
     #profile {
         color: #B5C401;
     }

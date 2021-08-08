@@ -15,24 +15,25 @@ import { GameTypeButton } from '../newbet/NewBetStyles';
 const Home: React.FC = () => {
 
     const history = useHistory();
-    const selectedCurrentUser = useAppSelector(currentLoggedUser);
-
-    const [filters, setFilters] = useState<string | null>(null);
 
     useEffect(() => {
         userCheck();
     });
 
+    const selectedCurrentUser = useAppSelector(currentLoggedUser);
+
+    const [filters, setFilters] = useState<string | null>(null);
+
     const userCheck = () => {
         if (!selectedCurrentUser) {
             history.push('/login');
-        }
+        };
     };
 
 
     const currentBets = useAppSelector(currentUserGames);
 
-    const filteredData = currentBets.filter((bet: any) => bet.type === filters);
+    const filteredData = currentBets?.filter((bet: any) => bet.type === filters);
 
     return (
         <>
@@ -66,7 +67,7 @@ const Home: React.FC = () => {
                 </div>
                 <h4 id="newbet"><Link to="/bet">New Bet ➝</Link></h4>
             </StyledHomeHeader>
-                        {filteredData.map((bet: any) =>
+                        {currentBets && filteredData.map((bet: any) =>
                         <Parent>
                             <ColoredBar bgc={bet.color} />
                             <BetCard>
@@ -79,7 +80,7 @@ const Home: React.FC = () => {
                         </Parent>)}
 
 
-                        {!filters && currentBets.length > 0 && currentBets.map((bet: any) => 
+                        {currentBets && !filters && currentBets.length > 0 && currentBets.map((bet: any) => 
                         <Parent>
                             <ColoredBar bgc={bet.color} />
                             <BetCard>
@@ -90,6 +91,9 @@ const Home: React.FC = () => {
                                 <BetGameType color={bet.color}>{bet.type}</BetGameType>
                             </BetCard>
                         </Parent>)}
+
+                        {!currentBets && <p id="noBet">Seems like you don't have any games yet! Click 
+                        <strong><Link to="/bet"> here</Link></strong> or in the 'New Bet' button so you can get your first ones!</p>}
             </Container>
             <Footer /> 
         </>

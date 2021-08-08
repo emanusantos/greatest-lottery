@@ -7,6 +7,14 @@ export const ProfileInfo = styled.div`
     gap: 1rem;
     color: #868686;
 
+    input {
+        width: 16.2rem;
+    }
+
+    form {
+        display: flex;
+    }
+
     .editIcon {
         margin-left: .5rem;
         cursor: pointer;

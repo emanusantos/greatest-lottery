@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Form, H3 } from "./LoginStyles";
 import { Input } from "../../components/Input";
 import GreatestApp from "../../components/GreatestApp";
@@ -7,14 +7,26 @@ import { Link } from "react-router-dom";
 import { selectUsers } from "../../store/regSlice";
 import { useAppSelector } from "../../hooks/reduxhooks";
 import { useAppDispatch } from "../../hooks/reduxhooks";
-import { currentUser } from "../../store/regSlice";
+import { currentUser, currentLoggedUser } from "../../store/regSlice";
 import { useHistory } from "react-router";
 import { VscError } from 'react-icons/vsc';
 import Modal from "../../components/Modal/Modal";
 
 const Login: React.FC = () => {
 
+    const selectedCurrentUser = useAppSelector(currentLoggedUser);
     const history = useHistory();
+
+    const userCheck = () => {
+        if (selectedCurrentUser) {
+            history.push('/');
+        };
+    };
+
+    useEffect(() => {
+        userCheck();
+    });
+
     const dispatch = useAppDispatch();
     const users = useAppSelector(selectUsers);
     console.log(users);

@@ -26,6 +26,6 @@ export const { register, currentUser, saveUserGames, mergeGames } = regSlice.act
 
 export const selectUsers = (state: RootState) => state.reg.users;
 export const currentLoggedUser = (state: RootState) => state.reg.currentUser;
-export const currentUserGames = (state: RootState) => state.reg.currentUser.games;
+export const currentUserGames = (state: RootState) => state.reg.currentUser?.games;
 
 export const regReducer = regSlice.reducer;

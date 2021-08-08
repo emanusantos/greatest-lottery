@@ -34,11 +34,6 @@ const Account: React.FC = () => {
         return setEditEmail(!editEmail);
     };
 
-    const handleChange = (e: any) => {
-        const target = e.target;
-        setUserCredentials({...userCredentials, [target.id]: target.value});
-    };
-
     const showModalHandler = () => {
         setModal(!modal);
     };
@@ -47,28 +42,38 @@ const Account: React.FC = () => {
         setChangePass(!changePass);
     }
 
+    const handleChange = (e: any) => {
+        const target = e.target;
+        setUserCredentials({...userCredentials, [target.id]: target.value});
+    };
+
+    const submitHandler = (e: any) => {
+        e.preventDefault();
+        
+    }
+
+    
+
     return (
         <>
             <Navbar />
             <Container padding="3rem 8.5rem" fd="column">
                 <h3 id="profile">{userSelector.name.toUpperCase()}'S PROFILE:</h3>
                 <ProfileInfo>
-                    
                         <p><strong>Name:</strong> {userSelector.name}<BsPencilSquare onClick={editNameHandler} className="editIcon" /></p>
                     {editName && <div className="nameEdit">
-                        <Input id="name" type="text" placeholder="Edit your name" onChange={e => handleChange(e)} value={userCredentials.name} />
-                        <button className="confirmEdit"><AiOutlineCheckCircle /></button>
+                        <form>
+                            <Input id="name" type="text" placeholder="Edit your name" onChange={e => handleChange(e)} value={userCredentials.name} />
+                            <button className="confirmEdit"><AiOutlineCheckCircle /></button>
+                        </form>
                     </div>}
-
-                    
                         <p><strong>Email:</strong> {userSelector.email}<BsPencilSquare onClick={editEmailHandler} className="editIcon" /></p>
                     {editEmail && <div className="emailEdit">
+                        <form>
                             <Input id="email" type="email" placeholder="Edit your email" onChange={e => handleChange(e)} value={userCredentials.email} />
                             <button className="confirmEdit"><AiOutlineCheckCircle /></button>
-                        
+                        </form>
                     </div>}
-                    
-                    
                     <p id="changePassword" onClick={changePassHandler}><strong>Change password</strong> <AiOutlineArrowDown /></p>
                     {changePass && <Form className="changeForm">
                         <Input id="pass" type="password" onChange={e => handleChange(e)} placeholder="Enter your new password" value={userCredentials.pass} />
@@ -77,11 +82,6 @@ const Account: React.FC = () => {
                     </Form>}
                 </ProfileInfo>
             </Container>
-            <button onClick={showModalHandler}>Open Modal</button>
-            {modal && <Modal onClose={showModalHandler}>
-                <p>oi</p>
-                <button onClick={showModalHandler}>close</button>
-            </Modal>}
             <Footer />
         </>
     )

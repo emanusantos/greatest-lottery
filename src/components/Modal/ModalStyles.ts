@@ -27,7 +27,7 @@ export const StyledModal = styled.div`
         justify-content: center;
         align-items: center; 
         border-radius: 1rem 1rem 0 0;
-        background-color: #e85e6c;
+        background-color: #B5C401;
 
         h2 {
             padding-top: 1rem;
@@ -42,6 +42,7 @@ export const StyledModal = styled.div`
         gap: 1rem;
         justify-content: center;
         align-items: center;
+        text-align: center;
         font-style: italic;
         font-weight: bold;
         margin-top: 2rem;

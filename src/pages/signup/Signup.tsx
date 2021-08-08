@@ -3,12 +3,24 @@ import GreatestApp from '../../components/GreatestApp';
 import { Container, Form, H3 } from '../login/LoginStyles';
 import Footer from '../../components/Footer';
 import { Input } from '../../components/Input';
-import { useAppDispatch } from '../../hooks/reduxhooks';
-import { register } from '../../store/regSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxhooks';
+import { register, currentLoggedUser } from '../../store/regSlice';
 import { Link, useHistory } from 'react-router-dom';
 import Modal from '../../components/Modal/Modal';
 
 const Signup: React.FC = () => {
+
+    useEffect(() => {
+        userCheck();
+    });
+
+    const userCheck = () => {
+        if (selectedCurrentUser) {
+            history.push('/');
+        };
+    };
+
+    const selectedCurrentUser = useAppSelector(currentLoggedUser);
 
     const [nameReg, setNameReg] = useState<string>('');
     const [emailReg, setEmailReg] = useState<string>('');
