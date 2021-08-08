@@ -110,6 +110,7 @@ const NewBet: React.FC = () => {
         }
     
         if (choseNumbers.length >= game['max-number']) {
+            errorHandler('randomGame');
             return;
         };
     

@@ -44,8 +44,13 @@ export const StyledModal = styled.div`
         align-items: center;
         text-align: center;
         font-style: italic;
-        font-weight: bold;
-        margin-top: 2rem;
+        color: #868686;
+        padding: .2rem;
+        margin-top: 1.5rem;
+
+        p {
+            max-width: 30rem;
+        }
 
         button {
             border: none;

@@ -7,7 +7,7 @@ export const ProfileInfo = styled.div`
     gap: 1rem;
     color: #868686;
 
-    input {
+    #name, #email {
         width: 16.2rem;
     }
 
