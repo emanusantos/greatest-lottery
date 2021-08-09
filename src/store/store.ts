@@ -1,12 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { gameReducer } from "./cartSlice";
 import { regReducer } from "./regSlice";
 import { persistReducer } from "redux-persist";
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from "redux";
 
 const reducers = combineReducers({
-    games: gameReducer, reg: regReducer
+    reg: regReducer
 })
 
 const persistConfig = {

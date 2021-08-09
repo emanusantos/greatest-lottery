@@ -5,7 +5,7 @@ import CartArea from '../../components/CartArea/CartArea';
 import { Game, GameButtons, BetButton, AddButton } from '../../components/GameArea/GameAreaStyles';
 import SelectedNumbers from '../../components/SelectedNumber/SelectedNumber';
 import Data from '../../games.json';
-import { Games } from '../../store/cartSlice';
+import { Games, CartItem } from '../../types/types';
 import { IoCartOutline } from 'react-icons/io5';
 import { VscError } from 'react-icons/vsc';
 import { currentLoggedUser } from '../../store/regSlice';
@@ -16,14 +16,6 @@ import Modal from '../../components/Modal/Modal';
 let currentGameRange: number[] = [];
 let total = Number(0);
 let errorText: string;
-
-interface CartItem {
-    id: string;
-    numbers: string;
-    price: number;
-    color: string;
-    type: string;
-}
 
 const NewBet: React.FC = () => {
 

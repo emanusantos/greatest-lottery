@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Game, GameButtons, BetButton, AddButton } from './GameAreaStyles';
 import SelectedNumbers from '../SelectedNumber/SelectedNumber';
 import Data from '../../games.json';
-import { Games } from '../../store/cartSlice';
+import { Games } from '../../types/types';
 
 let currentGameRange: number[] = [];
 
