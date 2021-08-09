@@ -17,6 +17,14 @@ let currentGameRange: number[] = [];
 let total = Number(0);
 let errorText: string;
 
+interface CartItem {
+    id: string;
+    numbers: string;
+    price: number;
+    color: string;
+    type: string;
+}
+
 const NewBet: React.FC = () => {
 
     const history = useHistory();
@@ -26,13 +34,11 @@ const NewBet: React.FC = () => {
         userCheck();
     });
 
-    const userCheck = () => {
+    const userCheck = (): void => {
         if (!selectedCurrentUser) {
             history.push('/login')
         };
     };
-
-
 
     const [game, setGame] = useState<Games>({
         type: '', 
@@ -45,7 +51,7 @@ const NewBet: React.FC = () => {
     });
 
     const [choseNumbers, setChoseNumbers] = useState<number[] | undefined>();
-    const [toCart, setToCart] = useState<any>([]);
+    const [toCart, setToCart] = useState<CartItem[] | []>([]);
     const [error, setError] = useState<boolean>(false);
 
     const errorHandler = (type: any) => {
@@ -62,7 +68,7 @@ const NewBet: React.FC = () => {
         return setError(!error);
     };
 
-    const cartAddHandler = (arg: any) => {
+    const cartAddHandler = (arg: CartItem[]) => {
         setToCart(arg);
     };
 
@@ -115,7 +121,7 @@ const NewBet: React.FC = () => {
         setChoseNumbers([...choseNumbers!, numberSelected])
     }
     
-    const checker = () => {
+    const checker = (): boolean => {
         if (game.type === '') {
             return false;
         } else {
@@ -172,11 +178,11 @@ const NewBet: React.FC = () => {
         return display;
     }
 
-    const clearGame = () => {
+    const clearGame = (): void => {
         setChoseNumbers([]);
     };
 
-    const addItemToCart = () => {
+    const addItemToCart = (): void => {
         if (choseNumbers!.length < game['max-number']) {
             errorHandler('moreNumbers');
             return;
@@ -188,12 +194,12 @@ const NewBet: React.FC = () => {
     };
 
     const removeGame = (id: string, price: number) => {
-        let newCart = toCart.filter((cartItem: any) => id !== cartItem.id);
+        let newCart = toCart.filter((cartItem: CartItem) => id !== cartItem.id);
         total -= price;
         return setToCart(newCart);
     };
 
-    const handleCleanUp = () => {
+    const handleCleanUp = (): void => {
         setToCart([]);
         total = Number(0);
         setChoseNumbers([]);

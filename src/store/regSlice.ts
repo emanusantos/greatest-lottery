@@ -5,7 +5,15 @@ export interface User {
     name: string,
     email: string,
     password: string,
-    games: string[] | null
+    games: Bet[] | null
+}
+
+export interface Bet {
+    id: string;
+    numbers: string;
+    price: number;
+    color: string;
+    type: string;
 }
 
 const initialState: { users: any, currentUser: User | null } = { users: [], currentUser: null }

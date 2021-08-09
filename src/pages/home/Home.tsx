@@ -7,7 +7,7 @@ import { BetCard, ColoredBar, BetGameType } from '../../components/CartArea/Cart
 import { Parent } from './HomeStyles';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { currentLoggedUser, currentUserGames } from '../../store/regSlice';
+import { currentLoggedUser, currentUserGames, Bet } from '../../store/regSlice';
 import Data from '../../games.json';
 import { GameTypeButton } from '../newbet/NewBetStyles';
 
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
 
     const currentBets = useAppSelector(currentUserGames);
 
-    const filteredData = currentBets?.filter((bet: any) => bet.type === filters);
+    const filteredData = currentBets?.filter((bet: Bet) => bet.type === filters);
 
     return (
         <>
@@ -66,7 +66,7 @@ const Home: React.FC = () => {
                 </div>
                 <h4 id="newbet"><Link to="/bet">New Bet ➝</Link></h4>
             </StyledHomeHeader>
-                        {currentBets && filteredData?.map((bet: any) =>
+                        {currentBets && filteredData?.map((bet: Bet) =>
                         <Parent key={Math.random()*20}>
                             <ColoredBar bgc={bet.color} />
                             <BetCard>
@@ -79,7 +79,7 @@ const Home: React.FC = () => {
                         </Parent>)}
 
 
-                        {currentBets && !filters && currentBets.length > 0 && currentBets.map((bet: any) => 
+                        {currentBets && !filters && currentBets.length > 0 && currentBets.map((bet: Bet) => 
                         <Parent key={Math.random()*20}>
                             <ColoredBar bgc={bet.color} />
                             <BetCard>

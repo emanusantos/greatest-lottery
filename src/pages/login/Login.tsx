@@ -22,7 +22,7 @@ const Login: React.FC = () => {
     const selectedCurrentUser = useAppSelector(currentLoggedUser);
     const history = useHistory();
 
-    const userCheck = () => {
+    const userCheck = (): void => {
         if (selectedCurrentUser) {
             history.push('/');
         };
@@ -39,15 +39,12 @@ const Login: React.FC = () => {
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState(false);
 
-    const emailResetter = () => {
+    const resetter = () => {
         setEmail('');
-    };
-
-    const passwordResetter = () => {
         setPassword('');
     };
 
-    const errorHandler = () => {
+    const errorHandler = (): void => {
         setError(!error);
     }
 
@@ -59,10 +56,7 @@ const Login: React.FC = () => {
         };
 
         const emailAuth = users.find((user: User) => user.email === email);
-        const passwordAuth = users.find((user: User) => user.password === password);
-
-        console.log(email, password);
-        
+        const passwordAuth = users.find((user: User) => user.password === password);  
 
         if (emailAuth === undefined || passwordAuth === undefined) {
             errorHandler();
@@ -72,8 +66,7 @@ const Login: React.FC = () => {
             history.push('/');
         }
 
-        emailResetter();
-        passwordResetter();
+        resetter();
     };
 
     return (

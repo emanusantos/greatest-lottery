@@ -14,7 +14,7 @@ const Signup: React.FC = () => {
         userCheck();
     });
 
-    const userCheck = () => {
+    const userCheck = (): void => {
         if (selectedCurrentUser) {
             history.push('/');
         };
@@ -30,19 +30,19 @@ const Signup: React.FC = () => {
     const dispatch = useAppDispatch();
     const history = useHistory();
 
-    const nameResetter = () => {
+    const nameResetter = (): void => {
         setNameReg('');
     };
 
-    const emailResetter = () => {
+    const emailResetter = (): void => {
         setEmailReg('');
     };
 
-    const passwordResetter = () => {
+    const passwordResetter = (): void => {
         setPasswordReg('');
     };
 
-    const showModalHandler = () => {
+    const showModalHandler = (): void => {
         setModal(!modal);
     };
 

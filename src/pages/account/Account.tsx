@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Navbar from '../../components/Navbar/Navbar';
 import { Container } from '../login/LoginStyles';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxhooks';
-import { currentLoggedUser, selectUsers, changeCredentials } from '../../store/regSlice';
+import { currentLoggedUser, selectUsers, changeCredentials, User } from '../../store/regSlice';
 import { ProfileInfo } from './AccountStyles';
 import { BsPencilSquare } from 'react-icons/bs';
 import { AiOutlineArrowDown, AiOutlineCheckCircle } from 'react-icons/ai';
@@ -17,9 +17,9 @@ const Account: React.FC = () => {
     const userSelector = useAppSelector(currentLoggedUser);
     const users = useAppSelector(selectUsers);
 
-    const [changePass, setChangePass] = useState(false);
-    const [editName, setEditName] = useState(false);
-    const [editEmail, setEditEmail] = useState(false);
+    const [changePass, setChangePass] = useState<boolean>(false);
+    const [editName, setEditName] = useState<boolean>(false);
+    const [editEmail, setEditEmail] = useState<boolean>(false);
     const [message, setMessage] = useState({
         nameMessage: '',
         emailMessage: '',
@@ -32,19 +32,19 @@ const Account: React.FC = () => {
         passconf: ''
     })
 
-    const editNameHandler = () => {
+    const editNameHandler = (): void => {
         return setEditName(!editName);
     };
 
-    const editEmailHandler = () => {
+    const editEmailHandler = (): void => {
         return setEditEmail(!editEmail);
     };
 
-    const changePassHandler = () => {
+    const changePassHandler = (): void => {
         setChangePass(!changePass);
     }
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const target = e.target;
         setUserCredentials({...userCredentials, [target.id]: target.value});
     };
@@ -57,7 +57,7 @@ const Account: React.FC = () => {
                 return setMessage({...message, nameMessage: "Please enter a valid name."})
             };
 
-            let index = users.findIndex((user: any) => user.email === userSelector?.email);
+            let index = users.findIndex((user: User) => user.email === userSelector?.email);
             dispatch(changeCredentials({index: index, newCredentials: {...userSelector, name: userCredentials.name}}));
             setUserCredentials({...userCredentials, name: ''});
             classname = 'success';
@@ -70,7 +70,7 @@ const Account: React.FC = () => {
                 return setMessage({...message, emailMessage: "Please enter a valid email address."})
             };
 
-            let index = users.findIndex((user: any) => user.email === userSelector?.email);
+            let index = users.findIndex((user: User) => user.email === userSelector?.email);
             dispatch(changeCredentials({index: index, newCredentials: {...userSelector, email: userCredentials.email}}));
             setUserCredentials({...userCredentials, email: ''});
             classname = 'success';
@@ -88,7 +88,7 @@ const Account: React.FC = () => {
                 return setMessage({...message, passwordMessage: "Your password should have at least 4 characters."})
             }
 
-            let index = users.findIndex((user: any) => user.email === userSelector?.email);
+            let index = users.findIndex((user: User) => user.email === userSelector?.email);
             dispatch(changeCredentials({index: index, newCredentials: {...userSelector, password: userCredentials.pass}}));
             setUserCredentials({...userCredentials, pass: '', passconf: ''});
             classname = 'success';
