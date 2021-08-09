@@ -83,6 +83,15 @@ export const Container = styled.div<Props>`
         }
 
     }
+
+    @media(max-width: 50rem) {
+        flex-direction: column;
+        position: relative;
+
+        form, h3 {
+            margin-left: 5rem;
+        }
+    };
 `;
 
 export const Form = styled.form`

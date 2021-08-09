@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Container, Form, H3 } from "./LoginStyles";
 import { Input } from "../../components/Input";
 import GreatestApp from "../../components/GreatestApp";
-import Footer from "../../components/Footer";
 import { Link } from "react-router-dom";
 import { selectUsers } from "../../store/regSlice";
 import { useAppSelector } from "../../hooks/reduxhooks";
@@ -97,7 +96,6 @@ const Login: React.FC = () => {
                 <H3 id="signup" className="center"><Link to="/signup">Sign Up ➝</Link></H3>
             </Container>
         </Container>
-        <Footer>Copyright 2021  Luby Software</Footer>
         {error && <Modal onClose={errorHandler}>
             <div className="errorHeader">
                 <h2 onClick={errorHandler}><VscError /></h2>

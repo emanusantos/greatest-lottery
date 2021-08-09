@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GreatestApp from '../../components/GreatestApp';
 import { Container, Form, H3 } from '../login/LoginStyles';
-import Footer from '../../components/Footer';
 import { Input } from '../../components/Input';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxhooks';
 import { register, currentLoggedUser } from '../../store/regSlice';
@@ -81,7 +80,6 @@ const Signup: React.FC = () => {
             {modal && <Modal onClose={showModalHandler}>
                 <p>You've signed up successfully. <Link to="/login">Click here</Link> to log in with your brand-new credentials!</p>
             </Modal>}
-            <Footer />
         </>
     );
 };
