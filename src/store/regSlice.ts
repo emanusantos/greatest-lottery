@@ -1,20 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from './store';
-
-export interface User {
-    name: string,
-    email: string,
-    password: string,
-    games: Bet[] | null
-}
-
-export interface Bet {
-    id: string;
-    numbers: string;
-    price: number;
-    color: string;
-    type: string;
-}
+import { User } from '../types/types';
 
 const initialState: { users: any, currentUser: User | null } = { users: [], currentUser: null }
 

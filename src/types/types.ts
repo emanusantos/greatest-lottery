@@ -12,10 +12,10 @@ export interface User {
     name: string,
     email: string,
     password: string,
-    games: [];
+    games: Bet[] | null
 };
 
-export interface CartItem {
+export interface Bet {
     id: string;
     numbers: string;
     price: number;

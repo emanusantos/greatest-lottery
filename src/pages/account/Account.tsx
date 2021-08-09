@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import Navbar from '../../components/Navbar/Navbar';
 import { Container } from '../login/LoginStyles';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxhooks';
-import { currentLoggedUser, selectUsers, changeCredentials, User } from '../../store/regSlice';
+import { currentLoggedUser, selectUsers, changeCredentials } from '../../store/regSlice';
+import { User } from '../../types/types';
 import { ProfileInfo } from './AccountStyles';
 import { BsPencilSquare } from 'react-icons/bs';
 import { AiOutlineArrowDown, AiOutlineCheckCircle } from 'react-icons/ai';

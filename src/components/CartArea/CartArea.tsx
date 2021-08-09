@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
 import { CartContainer } from './CartAreaStyles';
 import { IoTrashOutline } from 'react-icons/io5';
-import { VscError } from 'react-icons/vsc';
+import { VscError, VscCheck } from 'react-icons/vsc';
 import { ColoredBar, BetCard, BetGameType } from './CartAreaStyles';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxhooks';
 import { currentLoggedUser, selectUsers, saveUserGames, mergeGames } from '../../store/regSlice';
+import { Bet } from '../../types/types';
 import Modal from '../Modal/Modal';
+import { Link } from 'react-router-dom';
 
-
-
-const CartArea = ({ cart, onRemoveGame, total, handleCleanUp }: { cart: any, onRemoveGame: any, total: number, handleCleanUp: any}): React.ReactElement => {
+const CartArea = ({ cart, onRemoveGame, total, handleCleanUp }: { cart: Bet[], onRemoveGame: any, total: number, handleCleanUp: any}): React.ReactElement => {
 
 
     const dispatch = useAppDispatch();
     const currUser = useAppSelector(currentLoggedUser);
     const users = useAppSelector(selectUsers);
 
-    const [error, setError] = useState<boolean>(false);
+    const [modal, setModal] = useState({
+        error: false,
+        success: false
+    });
+
     const errorHandler = () => {
-        setError(!error);
+        setModal({...modal, error: !modal.error});
+    };
+
+    const successHandler = () => {
+        setModal({...modal, success: !modal.success});
     };
 
     const handleSave = () => {
@@ -29,6 +37,7 @@ const CartArea = ({ cart, onRemoveGame, total, handleCleanUp }: { cart: any, onR
         dispatch(saveUserGames(cart));
         let index = users.findIndex((user: any) => user.email === currUser?.email);
         dispatch(mergeGames({index: index, arr: cart}));
+        successHandler();
         handleCleanUp();
     };
 
@@ -38,8 +47,8 @@ const CartArea = ({ cart, onRemoveGame, total, handleCleanUp }: { cart: any, onR
                 <p className="titleFont" id="titleFont">CART</p>
                 {cart.length
                 ? <div className="cartItem">
-                {cart.map((item: any) =>
-                    <div className="parent">
+                {cart.map((item: Bet) =>
+                    <div className="parent" key={item.id}>
                     <IoTrashOutline size="1.5rem" className="icon" onClick={() => onRemoveGame(item.id, item.price)} />
                     <ColoredBar bgc={item.color} />
                     <BetCard>
@@ -58,7 +67,9 @@ const CartArea = ({ cart, onRemoveGame, total, handleCleanUp }: { cart: any, onR
             <div className="btnArea">
                 <button onClick={handleSave}>Save ➝</button>
             </div>
-            {error && <Modal onClose={errorHandler}>
+
+
+            {modal.error && <Modal onClose={errorHandler}>
             <div className="errorHeader">
                 <h2><VscError /></h2>
             </div>
@@ -67,6 +78,17 @@ const CartArea = ({ cart, onRemoveGame, total, handleCleanUp }: { cart: any, onR
                 R${(30 - total).toFixed(2).replace('.', ',')} on any games to
                 proceed.</p>
                 <button onClick={errorHandler}>Try again</button>
+            </div>
+        </Modal>}
+
+        {modal.success && <Modal onClose={successHandler}>
+            <div className="errorHeader">
+                <h2><VscCheck /></h2>
+            </div>
+            <div className="errorText">
+                <p>Your cart were successfully saved. Go to the <Link to="/">homepage</Link> to see 
+                your saved games or make another bet!</p>
+                <button onClick={successHandler}>Bet again</button>
             </div>
         </Modal>}
         </CartContainer>

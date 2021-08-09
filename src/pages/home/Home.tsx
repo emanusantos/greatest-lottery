@@ -7,7 +7,8 @@ import { BetCard, ColoredBar, BetGameType } from '../../components/CartArea/Cart
 import { Parent } from './HomeStyles';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { currentLoggedUser, currentUserGames, Bet } from '../../store/regSlice';
+import { currentLoggedUser, currentUserGames } from '../../store/regSlice';
+import { Bet } from '../../types/types';
 import Data from '../../games.json';
 import { GameTypeButton } from '../newbet/NewBetStyles';
 

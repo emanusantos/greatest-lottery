@@ -39,11 +39,6 @@ const Login: React.FC = () => {
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState(false);
 
-    const resetter = () => {
-        setEmail('');
-        setPassword('');
-    };
-
     const errorHandler = (): void => {
         setError(!error);
     }
@@ -65,8 +60,6 @@ const Login: React.FC = () => {
             dispatch(setCurrentUser(users[index]));
             history.push('/');
         }
-
-        resetter();
     };
 
     return (

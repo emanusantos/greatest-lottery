@@ -5,7 +5,7 @@ import CartArea from '../../components/CartArea/CartArea';
 import { Game, GameButtons, BetButton, AddButton } from '../../components/GameArea/GameAreaStyles';
 import SelectedNumbers from '../../components/SelectedNumber/SelectedNumber';
 import Data from '../../games.json';
-import { Games, CartItem } from '../../types/types';
+import { Games, Bet } from '../../types/types';
 import { IoCartOutline } from 'react-icons/io5';
 import { VscError } from 'react-icons/vsc';
 import { currentLoggedUser } from '../../store/regSlice';
@@ -43,7 +43,7 @@ const NewBet: React.FC = () => {
     });
 
     const [choseNumbers, setChoseNumbers] = useState<number[] | undefined>();
-    const [toCart, setToCart] = useState<CartItem[] | []>([]);
+    const [toCart, setToCart] = useState<Bet[] | []>([]);
     const [error, setError] = useState<boolean>(false);
 
     const errorHandler = (type: any) => {
@@ -60,7 +60,7 @@ const NewBet: React.FC = () => {
         return setError(!error);
     };
 
-    const cartAddHandler = (arg: CartItem[]) => {
+    const cartAddHandler = (arg: Bet[]) => {
         setToCart(arg);
     };
 
@@ -186,7 +186,7 @@ const NewBet: React.FC = () => {
     };
 
     const removeGame = (id: string, price: number) => {
-        let newCart = toCart.filter((cartItem: CartItem) => id !== cartItem.id);
+        let newCart = toCart.filter((cartItem: Bet) => id !== cartItem.id);
         total -= price;
         return setToCart(newCart);
     };
