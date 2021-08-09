@@ -20,7 +20,6 @@ const cartSlice = createSlice({
     reducers: {
         saveCartBets: (state, action) => {
             state.savedGames.push(...action.payload);
-            console.log(state.savedGames);
         }
     }
 })

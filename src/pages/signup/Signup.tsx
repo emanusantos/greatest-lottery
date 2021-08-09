@@ -54,7 +54,6 @@ const Signup: React.FC = () => {
             return;
         };
 
-        console.log(nameReg, emailReg, passwordReg);
         dispatch(register({name: nameReg, email: emailReg, password: passwordReg, games: []}));
         setModal(true);
 

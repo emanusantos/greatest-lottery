@@ -56,7 +56,6 @@ const GameArea: React.FC = () => {
         for (let i = 1; i <= range; i++) {
             currentGameRange.push(i)
         };
-        console.log(currentGameRange);
     };
 
     const selectNumber = (event: any): void => {
@@ -72,7 +71,6 @@ const GameArea: React.FC = () => {
         };
     
         setChoseNumbers([...choseNumbers, numberSelected])
-        console.log(choseNumbers)
     }
     
     const checker = () => {
@@ -139,7 +137,6 @@ const GameArea: React.FC = () => {
         }
 
         cartAddHandler([...toCart, { numbers: formatNumbers(), price: game.price, }])
-        console.log(toCart);
     };
 
     return (

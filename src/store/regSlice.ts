@@ -17,7 +17,7 @@ const regSlice = createSlice({
         register: (state, action) => {
             state.users.push(action.payload);
         },
-        currentUser: (state, action) => {
+        setCurrentUser: (state, action) => {
             state.currentUser = action.payload;
         },
         saveUserGames: (state, action) => {
@@ -33,7 +33,7 @@ const regSlice = createSlice({
     }
 });
 
-export const { register, currentUser, saveUserGames, mergeGames, changeCredentials } = regSlice.actions;
+export const { register, setCurrentUser, saveUserGames, mergeGames, changeCredentials } = regSlice.actions;
 
 export const selectUsers = (state: RootState) => state.reg.users;
 export const currentLoggedUser = (state: RootState) => state.reg.currentUser;

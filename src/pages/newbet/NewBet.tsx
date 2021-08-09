@@ -97,7 +97,6 @@ const NewBet: React.FC = () => {
         for (let i = 1; i <= range; i++) {
             currentGameRange.push(i)
         };
-        console.log(currentGameRange);
     };
 
     const selectNumber = (event: any): void => {
@@ -114,7 +113,6 @@ const NewBet: React.FC = () => {
         };
     
         setChoseNumbers([...choseNumbers!, numberSelected])
-        console.log(choseNumbers)
     }
     
     const checker = () => {
@@ -186,8 +184,7 @@ const NewBet: React.FC = () => {
 
         total += game.price;
 
-        cartAddHandler([...toCart, { id: Date.now().toString(), numbers: formatNumbers(), price: game.price, color: game.color, type: game.type }])
-        console.log(toCart);
+        cartAddHandler([...toCart, { id: Date.now().toString(), numbers: formatNumbers(), price: game.price, color: game.color, type: game.type }]);
     };
 
     const removeGame = (id: string, price: number) => {
