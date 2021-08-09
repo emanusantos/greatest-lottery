@@ -103,6 +103,18 @@ export const Form = styled.form`
     border-radius: 1rem;
     box-shadow: 0px 3px 25px #00000014;
 
+    .fail {
+        text-align: center;
+        font-size: .8rem;
+        color: red;
+    }
+
+    .success {
+        text-align: center;
+        font-size: .8rem;
+        color: green;
+    }
+
     button {
         font-style: italic;
         font-weight: bold;

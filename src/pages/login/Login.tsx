@@ -4,12 +4,18 @@ import { Input } from "../../components/Input";
 import GreatestApp from "../../components/GreatestApp";
 import { Link } from "react-router-dom";
 import { selectUsers } from "../../store/regSlice";
-import { useAppSelector } from "../../hooks/reduxhooks";
-import { useAppDispatch } from "../../hooks/reduxhooks";
+import { useAppSelector, useAppDispatch } from "../../hooks/reduxhooks";
 import { currentUser, currentLoggedUser } from "../../store/regSlice";
 import { useHistory } from "react-router";
 import { VscError } from 'react-icons/vsc';
 import Modal from "../../components/Modal/Modal";
+
+interface User {
+    name: string,
+    email: string,
+    password: string,
+    games: [];
+}
 
 const Login: React.FC = () => {
 
@@ -52,8 +58,8 @@ const Login: React.FC = () => {
             return;
         };
 
-        const emailAuth = users.find((user: any) => user.email === email);
-        const passwordAuth = users.find((user: any) => user.password === password);
+        const emailAuth = users.find((user: User) => user.email === email);
+        const passwordAuth = users.find((user: User) => user.password === password);
 
         console.log(email, password);
         
@@ -61,7 +67,7 @@ const Login: React.FC = () => {
         if (emailAuth === undefined || passwordAuth === undefined) {
             errorHandler();
         } else {
-            let index = users.findIndex((user: any) => user.email === email);
+            let index = users.findIndex((user: User) => user.email === email);
             console.log(index);
             dispatch(currentUser(users[index]));
             history.push('/');
