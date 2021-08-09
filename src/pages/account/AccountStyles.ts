@@ -7,8 +7,18 @@ export const ProfileInfo = styled.div`
     gap: 1rem;
     color: #868686;
 
+    .fail {
+        padding: 1rem;
+        color: red;
+    }
+
+    .success {
+        padding: 1rem;
+        color: #9ACD32;
+    }
+
     #name, #email {
-        width: 16.2rem;
+        width: 20rem;
     }
 
     form {

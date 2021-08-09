@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import { Container } from '../login/LoginStyles';
 import { StyledHomeHeader } from '../../components/HomeHeader/HomeHeaderStyles';
-import Footer from '../../components/Footer';
 import { useAppSelector } from '../../hooks/reduxhooks';
 import { BetCard, ColoredBar, BetGameType } from '../../components/CartArea/CartAreaStyles';
 import { Parent } from './HomeStyles';
@@ -95,7 +94,6 @@ const Home: React.FC = () => {
                         {!currentBets && <p id="noBet">Seems like you don't have any games yet! Click 
                         <strong><Link to="/bet"> here</Link></strong> or in the 'New Bet' button so you can get your first ones!</p>}
             </Container>
-            <Footer /> 
         </>
         
     );

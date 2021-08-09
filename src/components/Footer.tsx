@@ -3,10 +3,11 @@ import styled from 'styled-components';
 
 
 const StyledFooter = styled.footer`
-    clear: both;
-    position: relative;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1;
     height: 4rem;
-    margin-top: 35vh;
     padding: 1rem 0;
     text-align: center;
     color: #C2C2C2;

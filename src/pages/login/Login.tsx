@@ -25,11 +25,10 @@ const Login: React.FC = () => {
 
     useEffect(() => {
         userCheck();
-    });
+    }, []);
 
     const dispatch = useAppDispatch();
     const users = useAppSelector(selectUsers);
-    console.log(users);
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');

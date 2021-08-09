@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
@@ -10,7 +10,6 @@ import Account from './pages/account/Account';
 
 const Routes: React.FC = () => {
     return (
-        <Router>
             <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
@@ -19,7 +18,6 @@ const Routes: React.FC = () => {
                 <Route exact path="/" component={Home} />
                 <Route path="/bet" component={NewBet} />
             </Switch>
-        </Router>
     );
 };
 

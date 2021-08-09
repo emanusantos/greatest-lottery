@@ -60,6 +60,9 @@ export const Container = styled.div<Props>`
 
     #profile {
         color: #B5C401;
+        svg {
+            cursor: pointer;
+        }
     }
 
     .center {
