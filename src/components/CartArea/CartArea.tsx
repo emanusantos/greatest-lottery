@@ -28,7 +28,7 @@ const CartArea = ({ cart, onRemoveGame, total, handleCleanUp }: { cart: any, onR
         };
         console.log(cart);
         dispatch(saveUserGames(cart));
-        let index = users.findIndex((user: any) => user.email === currUser.email);
+        let index = users.findIndex((user: any) => user.email === currUser?.email);
         console.log(index);
         dispatch(mergeGames({index: index, arr: cart}));
         handleCleanUp();

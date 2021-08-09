@@ -66,8 +66,8 @@ const Home: React.FC = () => {
                 </div>
                 <h4 id="newbet"><Link to="/bet">New Bet ➝</Link></h4>
             </StyledHomeHeader>
-                        {currentBets && filteredData.map((bet: any) =>
-                        <Parent>
+                        {currentBets && filteredData?.map((bet: any) =>
+                        <Parent key={Math.random()*20}>
                             <ColoredBar bgc={bet.color} />
                             <BetCard>
                                 <p id="numbers">{bet.numbers}</p>
@@ -80,7 +80,7 @@ const Home: React.FC = () => {
 
 
                         {currentBets && !filters && currentBets.length > 0 && currentBets.map((bet: any) => 
-                        <Parent>
+                        <Parent key={Math.random()*20}>
                             <ColoredBar bgc={bet.color} />
                             <BetCard>
                                 <p id="numbers">{bet.numbers}</p>
@@ -91,7 +91,7 @@ const Home: React.FC = () => {
                             </BetCard>
                         </Parent>)}
 
-                        {!currentBets && <p id="noBet">Seems like you don't have any games yet! Click 
+                        {currentBets?.length === 0 && <p id="noBet">Seems like you don't have any games yet! Click 
                         <strong><Link to="/bet"> here</Link></strong> or in the 'New Bet' button so you can get your first ones!</p>}
             </Container>
         </>

@@ -44,15 +44,15 @@ const NewBet: React.FC = () => {
         'min-cart-value': 0
     });
 
-    const [choseNumbers, setChoseNumbers] = useState<any>();
+    const [choseNumbers, setChoseNumbers] = useState<number[] | undefined>();
     const [toCart, setToCart] = useState<any>([]);
     const [error, setError] = useState<boolean>(false);
 
     const errorHandler = (type: any) => {
         if (type === 'moreNumbers') {
             errorText = `To purchase a ${game.type} game, you have to bet ${game['max-number']} numbers. 
-            Please, select ${game['max-number'] - choseNumbers.length} more 
-            ${game['max-number'] - choseNumbers.length === 1 ? 'number' : 'numbers'}.`
+            Please, select ${game['max-number'] - choseNumbers!.length} more 
+            ${game['max-number'] - choseNumbers!.length === 1 ? 'number' : 'numbers'}.`
         };
 
         if (type === 'randomGame') {
@@ -103,17 +103,17 @@ const NewBet: React.FC = () => {
     const selectNumber = (event: any): void => {
         const numberSelected = Number(event.currentTarget.dataset.number);
 
-        if (numberAlreadyExists(choseNumbers, numberSelected)) {
-            const array = removeNumber(choseNumbers, numberSelected);
+        if (numberAlreadyExists(choseNumbers!, numberSelected)) {
+            const array = removeNumber(choseNumbers!, numberSelected);
             return setChoseNumbers(array);
         }
     
-        if (choseNumbers.length >= game['max-number']) {
+        if (choseNumbers!.length >= game['max-number']) {
             errorHandler('randomGame');
             return;
         };
     
-        setChoseNumbers([...choseNumbers, numberSelected])
+        setChoseNumbers([...choseNumbers!, numberSelected])
         console.log(choseNumbers)
     }
     
@@ -138,11 +138,11 @@ const NewBet: React.FC = () => {
     };
 
     const getRandomGame = () => {
-        let amount = game['max-number'] - choseNumbers.length;
+        let amount = game['max-number'] - choseNumbers!.length;
         if (amount === 0) {
             return errorHandler('randomGame');
         }
-        const randomizedNumbers = generateNumbers(amount, game.range, choseNumbers);
+        const randomizedNumbers = generateNumbers(amount, game.range, choseNumbers!);
         setChoseNumbers([...randomizedNumbers]);
     };
 
@@ -164,8 +164,8 @@ const NewBet: React.FC = () => {
 
     const formatNumbers = () => {
         let display = '';
-        choseNumbers.sort((a: number, b: number) => a - b).forEach((item: number, index: number) => {
-            if (index !== choseNumbers.length - 1) {
+        choseNumbers!.sort((a: number, b: number) => a - b).forEach((item: number, index: number) => {
+            if (index !== choseNumbers!.length - 1) {
                 display += `${item < 10 ? `0${item}` : item}, `
             } else {
                 display += item
@@ -179,7 +179,7 @@ const NewBet: React.FC = () => {
     };
 
     const addItemToCart = () => {
-        if (choseNumbers.length < game['max-number']) {
+        if (choseNumbers!.length < game['max-number']) {
             errorHandler('moreNumbers');
             return;
         }
@@ -190,7 +190,7 @@ const NewBet: React.FC = () => {
         console.log(toCart);
     };
 
-    const removeGame = (id: any, price: number) => {
+    const removeGame = (id: string, price: number) => {
         let newCart = toCart.filter((cartItem: any) => id !== cartItem.id);
         total -= price;
         return setToCart(newCart);
@@ -239,7 +239,7 @@ const NewBet: React.FC = () => {
                 {checker() && <div className="numbersArea">
                     {currentGameRange.map(button => {
                         let selected = false;
-                        if (choseNumbers.includes(button)) selected = true
+                        if (choseNumbers!.includes(button)) selected = true
                         let bgc = selected ? game.color : '#ADC0C4';
                         return (
                             <SelectedNumbers bgc={bgc} clicked={selectNumber} number={button} key={button} />

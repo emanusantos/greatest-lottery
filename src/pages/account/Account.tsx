@@ -57,7 +57,7 @@ const Account: React.FC = () => {
                 return setMessage({...message, nameMessage: "Please enter a valid name."})
             };
 
-            let index = users.findIndex((user: any) => user.email === userSelector.email);
+            let index = users.findIndex((user: any) => user.email === userSelector?.email);
             dispatch(changeCredentials({index: index, newCredentials: {...userSelector, name: userCredentials.name}}));
             setUserCredentials({...userCredentials, name: ''});
             classname = 'success';
@@ -70,7 +70,7 @@ const Account: React.FC = () => {
                 return setMessage({...message, emailMessage: "Please enter a valid email address."})
             };
 
-            let index = users.findIndex((user: any) => user.email === userSelector.email);
+            let index = users.findIndex((user: any) => user.email === userSelector?.email);
             dispatch(changeCredentials({index: index, newCredentials: {...userSelector, email: userCredentials.email}}));
             setUserCredentials({...userCredentials, email: ''});
             classname = 'success';
@@ -88,7 +88,7 @@ const Account: React.FC = () => {
                 return setMessage({...message, passwordMessage: "Your password should have at least 4 characters."})
             }
 
-            let index = users.findIndex((user: any) => user.email === userSelector.email);
+            let index = users.findIndex((user: any) => user.email === userSelector?.email);
             dispatch(changeCredentials({index: index, newCredentials: {...userSelector, password: userCredentials.pass}}));
             setUserCredentials({...userCredentials, pass: '', passconf: ''});
             classname = 'success';
@@ -102,9 +102,9 @@ const Account: React.FC = () => {
         <>
             <Navbar />
             <Container padding="3rem 8.5rem" fd="column">
-                <h3 id="profile">{userSelector.name.toUpperCase()}'S PROFILE:</h3>
+                <h3 id="profile">{userSelector?.name.toUpperCase()}'S PROFILE:</h3>
                 <ProfileInfo>
-                        <p><strong>Name:</strong> {userSelector.name}<BsPencilSquare onClick={editNameHandler} className="editIcon" /></p>
+                        <p><strong>Name:</strong> {userSelector?.name}<BsPencilSquare onClick={editNameHandler} className="editIcon" /></p>
                     {editName && <div className="nameEdit">
                         <form onSubmit={(e) => e.preventDefault()}>
                             <Input id="name" type="text" placeholder="Edit your name" onChange={e => handleChange(e)} value={userCredentials.name} />
@@ -112,7 +112,7 @@ const Account: React.FC = () => {
                         </form>
                         <p className={classname}>{message.nameMessage}</p>
                     </div>}
-                        <p><strong>Email:</strong> {userSelector.email}<BsPencilSquare onClick={editEmailHandler} className="editIcon" /></p>
+                        <p><strong>Email:</strong> {userSelector?.email}<BsPencilSquare onClick={editEmailHandler} className="editIcon" /></p>
                     {editEmail && <div className="emailEdit">
                         <form onSubmit={(e) => e.preventDefault()}>
                             <Input id="email" type="email" placeholder="Edit your email" onChange={e => handleChange(e)} value={userCredentials.email} />

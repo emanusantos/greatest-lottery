@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/reduxhooks';
 import { register, currentLoggedUser } from '../../store/regSlice';
 import { Link, useHistory } from 'react-router-dom';
 import Modal from '../../components/Modal/Modal';
+import { VscCheck } from 'react-icons/vsc';
 
 const Signup: React.FC = () => {
 
@@ -78,7 +79,13 @@ const Signup: React.FC = () => {
                 </Container>
             </Container>
             {modal && <Modal onClose={showModalHandler}>
-                <p>You've signed up successfully. <Link to="/login">Click here</Link> to log in with your brand-new credentials!</p>
+                <div className="errorHeader">
+                    <h2><VscCheck /></h2>
+                </div>
+                <div className="errorText">
+                    <p>You've signed up successfully. <Link to="/login">Click here</Link> to log in with your brand-new credentials!</p>
+                </div>
+                
             </Modal>}
         </>
     );

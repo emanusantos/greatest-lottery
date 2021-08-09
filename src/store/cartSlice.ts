@@ -11,7 +11,7 @@ export interface Games {
     'min-cart-value': number;
 }
 
-const initialState: { savedGames: any } = { savedGames: [] }
+const initialState: { savedGames: string[] } = { savedGames: [] }
 
 
 const cartSlice = createSlice({
