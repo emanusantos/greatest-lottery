@@ -80,7 +80,7 @@ const Account: React.FC = () => {
         if (e === 'changePass') {
             if (userCredentials.pass !== userCredentials.passconf) {
                 classname = 'fail';
-                return setMessage({...message, passwordMessage: "Your passwords are not equal."})
+                return setMessage({...message, passwordMessage: "Your passwords do not match."})
             };
 
             if (userCredentials.pass.length < 3) {
@@ -90,9 +90,9 @@ const Account: React.FC = () => {
 
             let index = users.findIndex((user: any) => user.email === userSelector.email);
             dispatch(changeCredentials({index: index, newCredentials: {...userSelector, password: userCredentials.pass}}));
-            setUserCredentials({...userCredentials, pass: ''});
+            setUserCredentials({...userCredentials, pass: '', passconf: ''});
             classname = 'success';
-            setMessage({...message, nameMessage: "You've successfully changed your password."})
+            setMessage({...message, passwordMessage: "You've successfully changed your password."})
         }
     }
 
@@ -121,11 +121,12 @@ const Account: React.FC = () => {
                         <p className={classname}>{message.emailMessage}</p>
                     </div>}
                     <p id="changePassword" onClick={changePassHandler}><strong>Change password</strong> <AiOutlineArrowDown /></p>
-                    {changePass && <Form className="changeForm" onSubmit={(e) => e.preventDefault()}>
+                    {changePass && <div><Form className="changeForm" onSubmit={(e) => e.preventDefault()}>
                         <Input id="pass" type="password" onChange={e => handleChange(e)} placeholder="Enter your new password" value={userCredentials.pass} />
                         <Input id="passconf" type="password" onChange={e => handleChange(e)} placeholder="Confirm your password" value={userCredentials.passconf} />
                         <button onClick={() => submitHandler('changePass')}>Change</button>
-                    </Form>}
+                    </Form>
+                    <p className={classname}>{message.passwordMessage}</p></div>}
                 </ProfileInfo>
             </Container>
         </>

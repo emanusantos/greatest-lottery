@@ -11,7 +11,6 @@ import { VscError } from 'react-icons/vsc';
 import { currentLoggedUser } from '../../store/regSlice';
 import { useAppSelector } from '../../hooks/reduxhooks';
 import { useHistory } from 'react-router-dom';
-import Footer from '../../components/Footer';
 import Modal from '../../components/Modal/Modal';
 
 let currentGameRange: number[] = [];
@@ -257,7 +256,6 @@ const NewBet: React.FC = () => {
             </Game>
                 <CartArea cart={toCart} onRemoveGame={removeGame} total={total} handleCleanUp={handleCleanUp} />
             </BetContainer>
-            <Footer />
             {error && <Modal onClose={errorHandler}>
             <div className="errorHeader">
                 <h2><VscError /></h2>
