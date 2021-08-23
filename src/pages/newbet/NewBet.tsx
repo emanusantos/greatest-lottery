@@ -4,14 +4,14 @@ import { BetContainer, GameTypeButton } from './NewBetStyles';
 import CartArea from '../../components/CartArea/CartArea';
 import { Game, GameButtons, BetButton, AddButton } from '../../components/GameArea/GameAreaStyles';
 import SelectedNumbers from '../../components/SelectedNumber/SelectedNumber';
-import Data from '../../games.json';
 import { Games, Bet } from '../../types/types';
 import { IoCartOutline } from 'react-icons/io5';
 import { VscError } from 'react-icons/vsc';
-import { currentLoggedUser } from '../../store/regSlice';
+import { token } from '../../store/regSlice';
 import { useAppSelector } from '../../hooks/reduxhooks';
 import { useHistory } from 'react-router-dom';
 import Modal from '../../components/Modal/Modal';
+import axios from 'axios';
 
 let currentGameRange: number[] = [];
 let total = Number(0);
@@ -20,13 +20,19 @@ let errorText: string;
 
 const NewBet: React.FC = () => {
 
-
     const history = useHistory();
-    const selectedCurrentUser = useAppSelector(currentLoggedUser)
+    const selectedCurrentUser = useAppSelector(token)
 
     useEffect(() => {
         userCheck();
-    });
+        getGames();
+    }, []);
+
+    const getGames = async () => {
+        const games = await axios.get('http://localhost:3333/games');
+        setData(games.data)
+        console.log(games.data);
+    } 
 
     const userCheck = (): void => {
         if (!selectedCurrentUser) {
@@ -34,14 +40,16 @@ const NewBet: React.FC = () => {
         };
     };
 
+    const [data, setData] = useState<any>([]);
+
     const [game, setGame] = useState<Games>({
         type: '', 
         description: '',
         range: 0,
         price: 0,
-        'max-number': 0,
+        'max_number': 0,
         color: '',
-        'min-cart-value': 0
+        'min_cart_value': 0
     });
 
     const [choseNumbers, setChoseNumbers] = useState<any>();
@@ -50,9 +58,9 @@ const NewBet: React.FC = () => {
 
     const errorHandler = (type: any) => {
         if (type === 'moreNumbers') {
-            errorText = `To purchase a ${game.type} game, you have to bet ${game['max-number']} numbers. 
-            Please, select ${game['max-number'] - choseNumbers!.length} more 
-            ${game['max-number'] - choseNumbers!.length === 1 ? 'number' : 'numbers'}.`
+            errorText = `To purchase a ${game.type} game, you have to bet ${game['max_number']} numbers. 
+            Please, select ${game['max_number'] - choseNumbers!.length} more 
+            ${game['max_number'] - choseNumbers!.length === 1 ? 'number' : 'numbers'}.`
         };
 
         if (type === 'randomGame') {
@@ -73,22 +81,22 @@ const NewBet: React.FC = () => {
 
         if (e === 'Lotofácil') {
             currentGameRange = [];
-            setGame(Data.types[0])
-            pushNumbers(Data.types[0].range);
+            setGame(data[0])
+            pushNumbers(data[0].range);
             setChoseNumbers([])
         };
 
         if (e === 'Mega-Sena') {
             currentGameRange = [];
-            setGame(Data.types[1])
-            pushNumbers(Data.types[1].range);
+            setGame(data[1])
+            pushNumbers(data[1].range);
             setChoseNumbers([])
         };
 
         if (e === 'Quina') {
             currentGameRange = [];
-            setGame(Data.types[2])
-            pushNumbers(Data.types[2].range);
+            setGame(data[2])
+            pushNumbers(data[2].range);
             setChoseNumbers([])
         };
     };
@@ -107,7 +115,7 @@ const NewBet: React.FC = () => {
             return setChoseNumbers(array);
         }
     
-        if (choseNumbers!.length >= game['max-number']) {
+        if (choseNumbers!.length >= game['max_number']) {
             errorHandler('randomGame');
             return;
         };
@@ -137,10 +145,10 @@ const NewBet: React.FC = () => {
 
     const getRandomGame = () => {
         console.log(choseNumbers)
-        let amount = game['max-number'] - choseNumbers!.length;
+        let amount = game['max_number'] - choseNumbers!.length;
         let array: any = [];
         if (amount === 0) {
-            const randomizedNumbers = generateNumbers(game['max-number'], game.range, array);
+            const randomizedNumbers = generateNumbers(game['max_number'], game.range, array);
             return setChoseNumbers([...randomizedNumbers])
         }
         const randomizedNumbers = generateNumbers(amount, game.range, choseNumbers!);
@@ -181,7 +189,7 @@ const NewBet: React.FC = () => {
     };
 
     const addItemToCart = (): void => {
-        if (choseNumbers!.length < game['max-number']) {
+        if (choseNumbers!.length < game['max_number']) {
             errorHandler('moreNumbers');
             return;
         }
@@ -216,7 +224,7 @@ const NewBet: React.FC = () => {
                 <p id="newbet"><strong>NEW BET</strong> {checker() && `FOR ${game.type.toUpperCase()}`}</p>
                 <p><strong>Choose a game</strong></p>
                 <GameButtons>
-                    {Data.types.map((button) => {
+                    {data.map((button: any) => {
                         let color = button.color
                         let bgc = '#fff';
                         let border = color;

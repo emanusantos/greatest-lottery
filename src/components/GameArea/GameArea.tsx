@@ -1,21 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Game, GameButtons, BetButton, AddButton } from './GameAreaStyles';
 import SelectedNumbers from '../SelectedNumber/SelectedNumber';
 import Data from '../../games.json';
 import { Games } from '../../types/types';
+import axios from 'axios';
 
 let currentGameRange: number[] = [];
 
 const GameArea: React.FC = () => {
+
+    useEffect(() => {
+        getGames();
+    }, [])
+
+    const getGames = async () => {
+        const games = await axios.get('http://localhost:3333/games');
+        setData(games.data)
+        console.log(games.data);
+    }
+
+    const [data, setData] = useState([]);
 
     const [game, setGame] = useState<Games>({
         type: '', 
         description: '',
         range: 0,
         price: 0,
-        'max-number': 0,
+        'max_number': 0,
         color: '',
-        'min-cart-value': 0
+        'min_cart_value': 0
     });
 
     const [choseNumbers, setChoseNumbers] = useState<any>();
@@ -32,21 +45,21 @@ const GameArea: React.FC = () => {
 
         if (e === 'Lotofácil') {
             currentGameRange = [];
-            setGame(Data.types[0])
+            setGame(data[0])
             pushNumbers(Data.types[0].range);
             setChoseNumbers([])
         };
 
         if (e === 'Mega-Sena') {
             currentGameRange = [];
-            setGame(Data.types[1])
+            setGame(data[1])
             pushNumbers(Data.types[1].range);
             setChoseNumbers([])
         };
 
         if (e === 'Quina') {
             currentGameRange = [];
-            setGame(Data.types[2])
+            setGame(data[2])
             pushNumbers(Data.types[2].range);
             setChoseNumbers([])
         };
@@ -66,7 +79,7 @@ const GameArea: React.FC = () => {
             return setChoseNumbers(array);
         }
     
-        if (choseNumbers.length >= game['max-number']) {
+        if (choseNumbers.length >= game['max_number']) {
             return;
         };
     
@@ -94,7 +107,7 @@ const GameArea: React.FC = () => {
     };
 
     const getRandomGame = () => {
-        const amount = game['max-number'] - choseNumbers.length;
+        const amount = game['max_number'] - choseNumbers.length;
         const randomizedNumbers = generateNumbers(amount, game.range, choseNumbers);
         setChoseNumbers([...randomizedNumbers]);
     };
@@ -132,7 +145,7 @@ const GameArea: React.FC = () => {
     };
 
     const addItemToCart = () => {
-        if (choseNumbers.length < game['max-number']) {
+        if (choseNumbers.length < game['max_number']) {
             return;
         }
 
