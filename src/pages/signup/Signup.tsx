@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import GreatestApp from '../../components/GreatestApp';
 import { Container, Form, H3 } from '../login/LoginStyles';
 import { Input } from '../../components/Input';
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxhooks';
-import { register, currentLoggedUser } from '../../store/regSlice';
+import { useAppSelector } from '../../hooks/reduxhooks';
+import { currentLoggedUser } from '../../store/regSlice';
 import { Link, useHistory } from 'react-router-dom';
 import Modal from '../../components/Modal/Modal';
 import { VscCheck, VscError } from 'react-icons/vsc';
+import axios from 'axios';
 
 const Signup: React.FC = () => {
 
@@ -37,8 +38,6 @@ const Signup: React.FC = () => {
     const successHandler = () => {
         setModal({...modal, success: !modal.success});
     };
-
-    const dispatch = useAppDispatch();
     const history = useHistory();
 
     const nameResetter = (): void => {
@@ -62,7 +61,18 @@ const Signup: React.FC = () => {
             return;
         };
 
-        dispatch(register({name: nameReg, email: emailReg, password: passwordReg, games: []}));
+        axios.post('http://localhost:3333/users', {
+            "name": nameReg,
+            "email": emailReg,
+            "password": passwordReg
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
         successHandler();
 
         nameResetter();
