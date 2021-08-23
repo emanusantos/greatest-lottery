@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Wrapper, Underline } from "./NavbarStyles";
 import { useAppDispatch } from "../../hooks/reduxhooks";
-import { setCurrentUser } from "../../store/regSlice";
+import { authSession } from "../../store/regSlice";
 import { useHistory } from "react-router";
 
 const Navbar: React.FC = () => {
@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
     const history = useHistory();
     
     const logoutHandler = () => {
-        dispatch(setCurrentUser(null));
+        dispatch(authSession(null));
         history.push('/login');
     };
 

@@ -5,10 +5,11 @@ import GreatestApp from "../../components/GreatestApp";
 import { Link } from "react-router-dom";
 import { selectUsers } from "../../store/regSlice";
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxhooks";
-import { setCurrentUser, currentLoggedUser } from "../../store/regSlice";
+import { authSession, currentLoggedUser } from "../../store/regSlice";
 import { useHistory } from "react-router";
 import { VscError } from 'react-icons/vsc';
 import Modal from "../../components/Modal/Modal";
+import axios from 'axios';
 
 interface User {
     name: string,
@@ -50,16 +51,19 @@ const Login: React.FC = () => {
             return;
         };
 
-        const emailAuth = users.find((user: User) => user.email === email);
-        const passwordAuth = users.find((user: User) => user.password === password);  
-
-        if (emailAuth === undefined || passwordAuth === undefined) {
-            errorHandler();
-        } else {
-            let index = users.findIndex((user: User) => user.email === email);
-            dispatch(setCurrentUser(users[index]));
+        axios.post('http://localhost:3333/sessions', {
+            "email": email,
+            "password": password
+          })
+          .then(function (response) {
+            console.log(response);
+            dispatch(authSession(response.data.token));
             history.push('/');
-        }
+          })
+          .catch(function (error) {
+            console.log(error);
+            errorHandler();
+          });
     };
 
     return (
