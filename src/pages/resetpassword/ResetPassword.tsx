@@ -82,7 +82,7 @@ const ResetPassword: React.FC = () => {
         .catch((err) => {
             console.log(err);
             classname = 'fail';
-            return setMessage('Something went wrong with the password reset.');
+            return setMessage('Something went wrong with the password reset. Please check your token');
         });
     };
 
@@ -99,8 +99,8 @@ const ResetPassword: React.FC = () => {
                     </Form>}
                     {hasLink && <Form onSubmit={recoverHandler}>
                         <Input type="string" placeholder="Token" id="token" onChange={(e) => handleChange(e)} value={resetCredentials.token} />
-                        <Input type="string" placeholder="Password" id="pass" onChange={(e) => handleChange(e)} value={resetCredentials.pass} />
-                        <Input type="string" placeholder="Confirm your password" id="passconf" onChange={(e) => handleChange(e)} value={resetCredentials.passconf} />
+                        <Input type="password" placeholder="Password" id="pass" onChange={(e) => handleChange(e)} value={resetCredentials.pass} />
+                        <Input type="password" placeholder="Confirm your password" id="passconf" onChange={(e) => handleChange(e)} value={resetCredentials.passconf} />
                         <p className={classname}>{message}</p>
                         <button>Reset</button>
                     </Form>}

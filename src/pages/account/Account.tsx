@@ -28,7 +28,7 @@ const Account: React.FC = () => {
         };
     };
 
-    const getUser = async () => {
+    const getUser = async (): Promise<void> => {
         await axios.get(`http://localhost:3333/users/${userId}`)
             .then((response) => {
                 console.log(response);
@@ -38,7 +38,33 @@ const Account: React.FC = () => {
                 console.log(err);
             })
     
-    }
+    };
+
+    const editUserName = async (): Promise<void> => {
+        await axios.put(`http://localhost:3333/users/${userId}`, {
+            name: userCredentials.name
+        })
+        .then((response) => {
+            console.log(response);
+            setInfo(response.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    };
+
+    const editUserEmail = async (): Promise<void> => {
+        await axios.put(`http://localhost:3333/users/${userId}`, {
+            email: userCredentials.email
+        })
+        .then((response) => {
+            console.log(response);
+            setInfo(response.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    };
 
     const history = useHistory();
 
@@ -75,7 +101,7 @@ const Account: React.FC = () => {
                 return setMessage({...message, nameMessage: "Please enter a valid name."})
             };
 
-
+            editUserName();
             classname = 'success';
             setMessage({...message, nameMessage: "You've successfully changed your name."})
         };
@@ -86,6 +112,7 @@ const Account: React.FC = () => {
                 return setMessage({...message, emailMessage: "Please enter a valid email address."})
             };
 
+            editUserEmail();
             classname = 'success';
             setMessage({...message, emailMessage: "You've successfully changed your email address."})
         };
@@ -98,7 +125,7 @@ const Account: React.FC = () => {
         <>
             <Navbar />
             <Container padding="3rem 8.5rem" fd="column">
-                <h3 id="profile">{info.name.toUpperCase()}'S PROFILE:</h3>
+                <h3 id="profile">{info.name ? info.name.toUpperCase() : info.name}'S PROFILE:</h3>
                 <ProfileInfo>
                         <p><strong>Name:</strong> {info.name} <BsPencilSquare onClick={editNameHandler} className="editIcon" /></p>
                     {editName && <div className="nameEdit">
