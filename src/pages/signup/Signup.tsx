@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/reduxhooks';
 import { register, currentLoggedUser } from '../../store/regSlice';
 import { Link, useHistory } from 'react-router-dom';
 import Modal from '../../components/Modal/Modal';
-import { VscCheck } from 'react-icons/vsc';
+import { VscCheck, VscError } from 'react-icons/vsc';
 
 const Signup: React.FC = () => {
 
@@ -25,7 +25,18 @@ const Signup: React.FC = () => {
     const [nameReg, setNameReg] = useState<string>('');
     const [emailReg, setEmailReg] = useState<string>('');
     const [passwordReg, setPasswordReg] = useState<string>('');
-    const [modal, setModal] = useState<boolean>(false);
+    const [modal, setModal] = useState({
+        error: false,
+        success: false
+    });
+
+    const errorHandler = () => {
+        setModal({...modal, error: !modal.error});
+    };
+
+    const successHandler = () => {
+        setModal({...modal, success: !modal.success});
+    };
 
     const dispatch = useAppDispatch();
     const history = useHistory();
@@ -42,20 +53,17 @@ const Signup: React.FC = () => {
         setPasswordReg('');
     };
 
-    const showModalHandler = (): void => {
-        setModal(!modal);
-    };
-
 
     const formHandler = (event: React.SyntheticEvent) => {
         event.preventDefault();
 
         if (nameReg.length === 0 || emailReg.length === 0 || passwordReg.length === 0) {
+            errorHandler();
             return;
         };
 
         dispatch(register({name: nameReg, email: emailReg, password: passwordReg, games: []}));
-        setModal(true);
+        successHandler();
 
         nameResetter();
         emailResetter();
@@ -77,12 +85,22 @@ const Signup: React.FC = () => {
                     <H3 id="signup" className="center"><Link to="/login">← Back</Link></H3>
                 </Container>
             </Container>
-            {modal && <Modal onClose={showModalHandler}>
+            {modal.success && <Modal onClose={successHandler}>
                 <div className="errorHeader">
                     <h2><VscCheck /></h2>
                 </div>
                 <div className="errorText">
                     <p>You've signed up successfully. <Link to="/login">Click here</Link> to log in with your brand-new credentials!</p>
+                </div>
+                
+            </Modal>}
+
+            {modal.error && <Modal onClose={errorHandler}>
+                <div className="errorHeader">
+                    <h2><VscError /></h2>
+                </div>
+                <div className="errorText">
+                    <p>Please enter valid credentials.</p>
                 </div>
                 
             </Modal>}

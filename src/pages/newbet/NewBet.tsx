@@ -17,7 +17,9 @@ let currentGameRange: number[] = [];
 let total = Number(0);
 let errorText: string;
 
+
 const NewBet: React.FC = () => {
+
 
     const history = useHistory();
     const selectedCurrentUser = useAppSelector(currentLoggedUser)
@@ -42,7 +44,7 @@ const NewBet: React.FC = () => {
         'min-cart-value': 0
     });
 
-    const [choseNumbers, setChoseNumbers] = useState<number[] | undefined>();
+    const [choseNumbers, setChoseNumbers] = useState<any>();
     const [toCart, setToCart] = useState<Bet[] | []>([]);
     const [error, setError] = useState<boolean>(false);
 
@@ -134,15 +136,19 @@ const NewBet: React.FC = () => {
     };
 
     const getRandomGame = () => {
+        console.log(choseNumbers)
         let amount = game['max-number'] - choseNumbers!.length;
+        let array: any = [];
         if (amount === 0) {
-            return errorHandler('randomGame');
+            const randomizedNumbers = generateNumbers(game['max-number'], game.range, array);
+            return setChoseNumbers([...randomizedNumbers])
         }
         const randomizedNumbers = generateNumbers(amount, game.range, choseNumbers!);
         setChoseNumbers([...randomizedNumbers]);
     };
 
     const generateNumbers = (amount: number, range: number, array: number[]) => {
+        clearGame();
         const getRandomNumbers = (max: number) => {
             return Math.ceil(Math.random() * max);
         };
@@ -183,6 +189,11 @@ const NewBet: React.FC = () => {
         total += game.price;
 
         cartAddHandler([...toCart, { id: Date.now().toString(), numbers: formatNumbers(), price: game.price, color: game.color, type: game.type }]);
+        clearGame();
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     };
 
     const removeGame = (id: string, price: number) => {
@@ -194,8 +205,8 @@ const NewBet: React.FC = () => {
     const handleCleanUp = (): void => {
         setToCart([]);
         total = Number(0);
-        setChoseNumbers([]);
-    }
+        clearGame();
+    };
 
     return (
         <>
@@ -243,7 +254,7 @@ const NewBet: React.FC = () => {
                 </div>}
                 {checker() && <div className="buttonsArea">
                     <div>
-                        <BetButton onClick={getRandomGame} width="10rem" id="complete">Complete game</BetButton>
+                        <BetButton onClick={() => getRandomGame()} width="10rem" id="complete">Complete game</BetButton>
                         <BetButton onClick={clearGame} width="8.5rem" id="clear">Clear game</BetButton>
                     </div>
                     <AddButton onClick={addItemToCart} id="add"><IoCartOutline size="1.5rem" className="cartIcon" />Add to cart</AddButton>

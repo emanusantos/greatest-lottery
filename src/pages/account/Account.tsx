@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar/Navbar';
 import { Container } from '../login/LoginStyles';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxhooks';
@@ -9,13 +9,26 @@ import { BsPencilSquare } from 'react-icons/bs';
 import { AiOutlineArrowDown, AiOutlineCheckCircle } from 'react-icons/ai';
 import { Form } from '../login/LoginStyles';
 import { Input } from '../../components/Input';
+import { useHistory } from 'react-router';
 
 let classname: string;
 
 const Account: React.FC = () => {
 
-    const dispatch = useAppDispatch();
+    useEffect(() => {
+        userCheck();
+    });
+
     const userSelector = useAppSelector(currentLoggedUser);
+
+    const userCheck = (): void => {
+        if (!userSelector) {
+            history.push('/login')
+        };
+    };
+
+    const history = useHistory();
+    const dispatch = useAppDispatch();
     const users = useAppSelector(selectUsers);
 
     const [changePass, setChangePass] = useState<boolean>(false);
