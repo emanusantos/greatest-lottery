@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar/Navbar';
 import { Container } from '../login/LoginStyles';
-import { useAppSelector, useAppDispatch } from '../../hooks/reduxhooks';
-import { token, selectUsers, id } from '../../store/regSlice';
+import { useAppSelector } from '../../hooks/reduxhooks';
+import { token, id } from '../../store/regSlice';
 import { ProfileInfo } from './AccountStyles';
 import { BsPencilSquare } from 'react-icons/bs';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
@@ -41,8 +41,6 @@ const Account: React.FC = () => {
     }
 
     const history = useHistory();
-    const dispatch = useAppDispatch();
-    const users = useAppSelector(selectUsers);
 
     const [info, setInfo] = useState<any>({});
     const [editName, setEditName] = useState<boolean>(false);

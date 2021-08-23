@@ -133,7 +133,7 @@ export const Form = styled.form`
         }
     }
 
-    #radius {
+    #radius, #token {
         border-radius: 1rem 1rem 0 0;
     }
 

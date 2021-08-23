@@ -45,16 +45,16 @@ const Login: React.FC = () => {
         axios.post('http://localhost:3333/sessions', {
             "email": email,
             "password": password
-          })
+        })
           .then(function (response) {
             console.log(response);
             dispatch(authSession(response.data.token));
             history.push('/');
-          })
+        })
           .catch(function (error) {
             console.log(error);
             errorHandler();
-          });
+        });
     };
 
     return (
