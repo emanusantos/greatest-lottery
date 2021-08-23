@@ -8,9 +8,9 @@ import { Parent } from './HomeStyles';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { token, currentUserGames } from '../../store/regSlice';
-import { Bet } from '../../types/types';
-import Data from '../../games.json';
+import { Bet, Games } from '../../types/types';
 import { GameTypeButton } from '../newbet/NewBetStyles';
+import axios from 'axios';
 
 const Home: React.FC = () => {
 
@@ -18,14 +18,23 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         userCheck();
+        getGames();
     });
 
-    const selectedCurrentUser = useAppSelector(token);
+    const getGames = async () => {
+        const games = await axios.get('http://localhost:3333/games');
+        setData(games.data)
+        console.log(games.data);
+    } 
+
+    const userToken = useAppSelector(token);
 
     const [filters, setFilters] = useState<string | null>(null);
 
+    const [data, setData] = useState<Games[]>([]);
+
     const userCheck = () => {
-        if (!selectedCurrentUser) {
+        if (!userToken) {
             history.push('/login');
         };
     };
@@ -43,7 +52,7 @@ const Home: React.FC = () => {
                 <h4>RECENT GAMES</h4>
                 <div className="filters">
                     <p onClick={() => setFilters(null)}>Filters</p>
-                    {Data.types.map((button) => {
+                    {data.map((button) => {
                         let color = button.color
                         let bgc = '#fff';
                         let border = color;

@@ -21,7 +21,7 @@ let errorText: string;
 const NewBet: React.FC = () => {
 
     const history = useHistory();
-    const selectedCurrentUser = useAppSelector(token)
+    const userToken = useAppSelector(token)
 
     useEffect(() => {
         userCheck();
@@ -35,7 +35,7 @@ const NewBet: React.FC = () => {
     } 
 
     const userCheck = (): void => {
-        if (!selectedCurrentUser) {
+        if (!userToken) {
             history.push('/login')
         };
     };
