@@ -3,18 +3,16 @@ import { CartContainer } from './CartAreaStyles';
 import { IoTrashOutline } from 'react-icons/io5';
 import { VscError, VscCheck } from 'react-icons/vsc';
 import { ColoredBar, BetCard, BetGameType } from './CartAreaStyles';
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxhooks';
-import { currentLoggedUser, selectUsers, saveUserGames, mergeGames } from '../../store/regSlice';
+import { useAppSelector } from '../../hooks/reduxhooks';
+import { token } from '../../store/regSlice';
 import { Bet } from '../../types/types';
 import Modal from '../Modal/Modal';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const CartArea = ({ cart, onRemoveGame, total, handleCleanUp }: { cart: Bet[], onRemoveGame: any, total: number, handleCleanUp: any}): React.ReactElement => {
 
-
-    const dispatch = useAppDispatch();
-    const currUser = useAppSelector(currentLoggedUser);
-    const users = useAppSelector(selectUsers);
+    const userToken = useAppSelector(token);
 
     const [modal, setModal] = useState({
         error: false,
@@ -34,9 +32,24 @@ const CartArea = ({ cart, onRemoveGame, total, handleCleanUp }: { cart: Bet[], o
             errorHandler();
             return;
         };
-        dispatch(saveUserGames(cart));
-        let index = users.findIndex((user: any) => user.email === currUser?.email);
-        dispatch(mergeGames({index: index, arr: cart}));
+
+        const postedData = cart.map(({ game_id, numbers }) => ({ game_id, numbers }));
+
+        const postBets = async () => {
+            await axios.post('http://localhost:3333/bets', {
+                betCart: postedData
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${userToken}`
+                }
+            }).then((response) => {
+                console.log(response);
+            }).catch((err) => {
+                console.log(err);
+            })
+        };
+
+        postBets();
         successHandler();
         handleCleanUp();
     };

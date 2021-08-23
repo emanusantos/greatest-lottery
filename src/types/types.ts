@@ -9,14 +9,14 @@ export interface Games {
 };
 
 export interface User {
-    name: string,
-    email: string,
-    password: string,
-    games: Bet[] | null
+    id: number;
+    name: string;
+    email: string;
 };
 
 export interface Bet {
     id: string;
+    game_id: number;
     numbers: string;
     price: number;
     color: string;

@@ -16,6 +16,7 @@ import axios from 'axios';
 let currentGameRange: number[] = [];
 let total = Number(0);
 let errorText: string;
+let gameid: number;
 
 
 const NewBet: React.FC = () => {
@@ -81,7 +82,8 @@ const NewBet: React.FC = () => {
 
         if (e === 'Lotofácil') {
             currentGameRange = [];
-            setGame(data[0])
+            setGame(data[0]);
+            gameid = data[0].id;
             pushNumbers(data[0].range);
             setChoseNumbers([])
         };
@@ -89,6 +91,7 @@ const NewBet: React.FC = () => {
         if (e === 'Mega-Sena') {
             currentGameRange = [];
             setGame(data[1])
+            gameid = data[1].id;
             pushNumbers(data[1].range);
             setChoseNumbers([])
         };
@@ -96,6 +99,7 @@ const NewBet: React.FC = () => {
         if (e === 'Quina') {
             currentGameRange = [];
             setGame(data[2])
+            gameid = data[2].id;
             pushNumbers(data[2].range);
             setChoseNumbers([])
         };
@@ -196,7 +200,7 @@ const NewBet: React.FC = () => {
 
         total += game.price;
 
-        cartAddHandler([...toCart, { id: Date.now().toString(), numbers: formatNumbers(), price: game.price, color: game.color, type: game.type }]);
+        cartAddHandler([...toCart, { id: Date.now().toString(), game_id: gameid, numbers: formatNumbers(), price: game.price, color: game.color, type: game.type }]);
         clearGame();
         window.scrollTo({
             top: 0,

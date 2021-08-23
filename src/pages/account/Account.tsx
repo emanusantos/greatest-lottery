@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar/Navbar';
 import { Container } from '../login/LoginStyles';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxhooks';
-import { currentLoggedUser, selectUsers, changeCredentials } from '../../store/regSlice';
-import { User } from '../../types/types';
+import { token, selectUsers, id } from '../../store/regSlice';
 import { ProfileInfo } from './AccountStyles';
 import { BsPencilSquare } from 'react-icons/bs';
-import { AiOutlineArrowDown, AiOutlineCheckCircle } from 'react-icons/ai';
-import { Form } from '../login/LoginStyles';
+import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { Input } from '../../components/Input';
 import { useHistory } from 'react-router';
+import axios from 'axios';
 
 let classname: string;
 
@@ -17,33 +16,44 @@ const Account: React.FC = () => {
 
     useEffect(() => {
         userCheck();
-    });
+        getUser();
+    }, []);
 
-    const userSelector = useAppSelector(currentLoggedUser);
+    const userToken = useAppSelector(token);
+    const userId = useAppSelector(id)
 
     const userCheck = (): void => {
-        if (!userSelector) {
+        if (!userToken) {
             history.push('/login')
         };
     };
+
+    const getUser = async () => {
+        await axios.get(`http://localhost:3333/users/${userId}`)
+            .then((response) => {
+                console.log(response);
+                setInfo(response.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    
+    }
 
     const history = useHistory();
     const dispatch = useAppDispatch();
     const users = useAppSelector(selectUsers);
 
-    const [changePass, setChangePass] = useState<boolean>(false);
+    const [info, setInfo] = useState<any>({});
     const [editName, setEditName] = useState<boolean>(false);
     const [editEmail, setEditEmail] = useState<boolean>(false);
     const [message, setMessage] = useState({
         nameMessage: '',
-        emailMessage: '',
-        passwordMessage: ''
+        emailMessage: ''
     });
     const [userCredentials, setUserCredentials] = useState({
         name: '',
-        email: '',
-        pass: '',
-        passconf: ''
+        email: ''
     })
 
     const editNameHandler = (): void => {
@@ -53,10 +63,6 @@ const Account: React.FC = () => {
     const editEmailHandler = (): void => {
         return setEditEmail(!editEmail);
     };
-
-    const changePassHandler = (): void => {
-        setChangePass(!changePass);
-    }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const target = e.target;
@@ -71,9 +77,7 @@ const Account: React.FC = () => {
                 return setMessage({...message, nameMessage: "Please enter a valid name."})
             };
 
-            let index = users.findIndex((user: User) => user.email === userSelector?.email);
-            dispatch(changeCredentials({index: index, newCredentials: {...userSelector, name: userCredentials.name}}));
-            setUserCredentials({...userCredentials, name: ''});
+
             classname = 'success';
             setMessage({...message, nameMessage: "You've successfully changed your name."})
         };
@@ -84,31 +88,11 @@ const Account: React.FC = () => {
                 return setMessage({...message, emailMessage: "Please enter a valid email address."})
             };
 
-            let index = users.findIndex((user: User) => user.email === userSelector?.email);
-            dispatch(changeCredentials({index: index, newCredentials: {...userSelector, email: userCredentials.email}}));
-            setUserCredentials({...userCredentials, email: ''});
             classname = 'success';
             setMessage({...message, emailMessage: "You've successfully changed your email address."})
         };
 
-        if (e === 'changePass') {
-            if (userCredentials.pass !== userCredentials.passconf) {
-                classname = 'fail';
-                return setMessage({...message, passwordMessage: "Your passwords do not match."})
-            };
-
-            if (userCredentials.pass.length < 3) {
-                classname = 'fail';
-                return setMessage({...message, passwordMessage: "Your password should have at least 4 characters."})
-            }
-
-            let index = users.findIndex((user: User) => user.email === userSelector?.email);
-            dispatch(changeCredentials({index: index, newCredentials: {...userSelector, password: userCredentials.pass}}));
-            setUserCredentials({...userCredentials, pass: '', passconf: ''});
-            classname = 'success';
-            setMessage({...message, passwordMessage: "You've successfully changed your password."})
-        }
-    }
+    };
 
     
 
@@ -116,9 +100,9 @@ const Account: React.FC = () => {
         <>
             <Navbar />
             <Container padding="3rem 8.5rem" fd="column">
-                <h3 id="profile">{userSelector?.name.toUpperCase()}'S PROFILE:</h3>
+                <h3 id="profile">{info.name.toUpperCase()}'S PROFILE:</h3>
                 <ProfileInfo>
-                        <p><strong>Name:</strong> {userSelector?.name}<BsPencilSquare onClick={editNameHandler} className="editIcon" /></p>
+                        <p><strong>Name:</strong> {info.name} <BsPencilSquare onClick={editNameHandler} className="editIcon" /></p>
                     {editName && <div className="nameEdit">
                         <form onSubmit={(e) => e.preventDefault()}>
                             <Input id="name" type="text" placeholder="Edit your name" onChange={e => handleChange(e)} value={userCredentials.name} />
@@ -126,7 +110,7 @@ const Account: React.FC = () => {
                         </form>
                         <p className={classname}>{message.nameMessage}</p>
                     </div>}
-                        <p><strong>Email:</strong> {userSelector?.email}<BsPencilSquare onClick={editEmailHandler} className="editIcon" /></p>
+                        <p><strong>Email:</strong> {info.email}<BsPencilSquare onClick={editEmailHandler} className="editIcon" /></p>
                     {editEmail && <div className="emailEdit">
                         <form onSubmit={(e) => e.preventDefault()}>
                             <Input id="email" type="email" placeholder="Edit your email" onChange={e => handleChange(e)} value={userCredentials.email} />
@@ -134,13 +118,6 @@ const Account: React.FC = () => {
                         </form>
                         <p className={classname}>{message.emailMessage}</p>
                     </div>}
-                    <p id="changePassword" onClick={changePassHandler}><strong>Change password</strong> <AiOutlineArrowDown /></p>
-                    {changePass && <div><Form className="changeForm" onSubmit={(e) => e.preventDefault()}>
-                        <Input id="pass" type="password" onChange={e => handleChange(e)} placeholder="Enter your new password" value={userCredentials.pass} />
-                        <Input id="passconf" type="password" onChange={e => handleChange(e)} placeholder="Confirm your password" value={userCredentials.passconf} />
-                        <button onClick={() => submitHandler('changePass')}>Change</button>
-                    </Form>
-                    <p className={classname}>{message.passwordMessage}</p></div>}
                 </ProfileInfo>
             </Container>
         </>

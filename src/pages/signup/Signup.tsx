@@ -3,7 +3,7 @@ import GreatestApp from '../../components/GreatestApp';
 import { Container, Form, H3 } from '../login/LoginStyles';
 import { Input } from '../../components/Input';
 import { useAppSelector } from '../../hooks/reduxhooks';
-import { currentLoggedUser } from '../../store/regSlice';
+import { token } from '../../store/regSlice';
 import { Link, useHistory } from 'react-router-dom';
 import Modal from '../../components/Modal/Modal';
 import { VscCheck, VscError } from 'react-icons/vsc';
@@ -16,12 +16,12 @@ const Signup: React.FC = () => {
     });
 
     const userCheck = (): void => {
-        if (selectedCurrentUser) {
+        if (userToken) {
             history.push('/');
         };
     };
 
-    const selectedCurrentUser = useAppSelector(currentLoggedUser);
+    const userToken = useAppSelector(token);
 
     const [nameReg, setNameReg] = useState<string>('');
     const [emailReg, setEmailReg] = useState<string>('');

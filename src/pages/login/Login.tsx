@@ -3,20 +3,12 @@ import { Container, Form, H3 } from "./LoginStyles";
 import { Input } from "../../components/Input";
 import GreatestApp from "../../components/GreatestApp";
 import { Link } from "react-router-dom";
-import { selectUsers } from "../../store/regSlice";
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxhooks";
 import { authSession, token } from "../../store/regSlice";
 import { useHistory } from "react-router";
 import { VscError } from 'react-icons/vsc';
 import Modal from "../../components/Modal/Modal";
 import axios from 'axios';
-
-interface User {
-    name: string,
-    email: string,
-    password: string,
-    games: [];
-}
 
 const Login: React.FC = () => {
 
@@ -34,7 +26,6 @@ const Login: React.FC = () => {
     }, []);
 
     const dispatch = useAppDispatch();
-    const users = useAppSelector(selectUsers);
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');

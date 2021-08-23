@@ -2,36 +2,53 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import { Container } from '../login/LoginStyles';
 import { StyledHomeHeader } from '../../components/HomeHeader/HomeHeaderStyles';
-import { useAppSelector } from '../../hooks/reduxhooks';
+import { useAppSelector, useAppDispatch } from '../../hooks/reduxhooks';
 import { BetCard, ColoredBar, BetGameType } from '../../components/CartArea/CartAreaStyles';
 import { Parent } from './HomeStyles';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { token, currentUserGames } from '../../store/regSlice';
-import { Bet, Games } from '../../types/types';
+import { token, setId } from '../../store/regSlice';
+import { Games } from '../../types/types';
 import { GameTypeButton } from '../newbet/NewBetStyles';
 import axios from 'axios';
 
 const Home: React.FC = () => {
 
     const history = useHistory();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         userCheck();
         getGames();
-    });
+        getBets();
+    }, []);
 
     const getGames = async () => {
         const games = await axios.get('http://localhost:3333/games');
         setData(games.data)
         console.log(games.data);
-    } 
+    };
 
     const userToken = useAppSelector(token);
+
+    const getBets = async () => {
+        await axios.get('http://localhost:3333/bets', {
+            headers: {
+                'Authorization': `Bearer ${userToken}`
+            }
+        }).then((response) => {
+            console.log(response);
+            setUserBets(response.data)
+            dispatch(setId(response.data[0].user_id))
+        }).catch((err) => {
+            console.log(err);
+        })
+    };
 
     const [filters, setFilters] = useState<string | null>(null);
 
     const [data, setData] = useState<Games[]>([]);
+    const [userBets, setUserBets] = useState<any>([]);
 
     const userCheck = () => {
         if (!userToken) {
@@ -39,10 +56,7 @@ const Home: React.FC = () => {
         };
     };
 
-
-    const currentBets = useAppSelector(currentUserGames);
-
-    const filteredData = currentBets?.filter((bet: Bet) => bet.type === filters);
+    const filteredData = userBets?.filter((bet: any) => bet.game.type === filters);
 
     return (
         <>
@@ -76,32 +90,32 @@ const Home: React.FC = () => {
                 </div>
                 <h4 id="newbet"><Link to="/bet">New Bet ➝</Link></h4>
             </StyledHomeHeader>
-                        {currentBets && filteredData?.map((bet: Bet) =>
+                        {userBets && filteredData?.map((bet: any) =>
                         <Parent key={Math.random()*20}>
-                            <ColoredBar bgc={bet.color} />
+                            <ColoredBar bgc={bet.game.color} />
                             <BetCard>
                                 <p id="numbers">{bet.numbers}</p>
                                 <p id="dateAndPrice">
                                     {new Date().toLocaleDateString('pt-br')} - {`R$ ${bet.price.toFixed(2).replace('.', ',')}`}
                                 </p>
-                                <BetGameType color={bet.color}>{bet.type}</BetGameType>
+                                <BetGameType color={bet.game.color}>{bet.game.type}</BetGameType>
                             </BetCard>
                         </Parent>)}
 
 
-                        {currentBets && !filters && currentBets.length > 0 && currentBets.map((bet: Bet) => 
+                        {userBets && !filters && userBets.length > 0 && userBets.map((bet: any) => 
                         <Parent key={Math.random()*20}>
-                            <ColoredBar bgc={bet.color} />
+                            <ColoredBar bgc={bet.game.color} />
                             <BetCard>
                                 <p id="numbers">{bet.numbers}</p>
                                 <p id="dateAndPrice">
                                     {new Date().toLocaleDateString('pt-br')} - {`R$ ${bet.price.toFixed(2).replace('.', ',')}`}
                                 </p>
-                                <BetGameType color={bet.color}>{bet.type}</BetGameType>
+                                <BetGameType color={bet.game.color}>{bet.game.type}</BetGameType>
                             </BetCard>
                         </Parent>)}
 
-                        {currentBets?.length === 0 && <p id="noBet">Seems like you don't have any games yet! Click 
+                        {userBets?.length === 0 && <p id="noBet">Seems like you don't have any games yet! Click 
                         <strong><Link to="/bet"> here</Link></strong> or in the 'New Bet' button so you can get your first ones!</p>}
             </Container>
         </>
