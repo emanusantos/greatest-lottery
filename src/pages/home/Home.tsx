@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { MouseEventHandler, useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import { Container } from '../login/LoginStyles';
 import { StyledHomeHeader } from '../../components/HomeHeader/HomeHeaderStyles';
@@ -12,6 +12,8 @@ import { Games, BetResponse } from '../../types/types';
 import { GameTypeButton } from '../newbet/NewBetStyles';
 import axios from 'axios';
 
+let pages: number;
+
 const Home: React.FC = () => {
 
     const history = useHistory();
@@ -20,8 +22,13 @@ const Home: React.FC = () => {
     useEffect(() => {
         userCheck();
         getGames();
-        getBets();
     }, []);
+
+    const [page, setPage] = useState<number>(1);
+
+    useEffect(() => {
+        getBets();
+    }, [page])
 
     const getGames = async (): Promise<void> => {
         const games = await axios.get('http://localhost:3333/games');
@@ -29,23 +36,28 @@ const Home: React.FC = () => {
         console.log(games.data);
     };
 
-    const userToken = useAppSelector(token);
-
     const getBets = async (): Promise<void> => {
-        await axios.get('http://localhost:3333/bets', {
+        await axios.get(`http://localhost:3333/bets?page=${page}`, {
             headers: {
                 'Authorization': `Bearer ${userToken}`
             }
         }).then((response) => {
-            console.log(response);
-            setUserBets(response.data)
-            dispatch(setId(response.data[0].user_id))
+            console.log(response.data.data[0].user_id)
+            console.log(response.data.data);
+            setPagesNum(response.data.lastPage);
+            setUserBets(response.data.data)
+            console.log(userBets);
+            dispatch(setId(response.data.data[0].user_id))
         }).catch((err) => {
             console.log(err);
         })
     };
 
+    const userToken = useAppSelector(token);
+    
+
     const [filters, setFilters] = useState<string | null>(null);
+    const [pagesNum, setPagesNum] = useState<number>(0);
 
     const [data, setData] = useState<Games[]>([]);
     const [userBets, setUserBets] = useState<BetResponse[]>([]);
@@ -56,6 +68,17 @@ const Home: React.FC = () => {
         };
     };
 
+    console.log(pagesNum);
+    const pagesArr = new Array(pagesNum);
+
+    const incrementPage = (e: any) => {
+        setPage(e.target.value);
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
     const filteredData = userBets?.filter((bet: BetResponse) => bet.game.type === filters);
 
     return (
@@ -65,7 +88,7 @@ const Home: React.FC = () => {
             <StyledHomeHeader>
                 <h4>RECENT GAMES</h4>
                 <div className="filters">
-                    <p onClick={() => setFilters(null)}>Filters</p>
+                    <p onClick={() => setFilters(null)}>Reset filters</p>
                     {data.map((button) => {
                         let color = button.color
                         let bgc = '#fff';
@@ -96,7 +119,7 @@ const Home: React.FC = () => {
                             <BetCard>
                                 <p id="numbers">{bet.numbers}</p>
                                 <p id="dateAndPrice">
-                                    {new Date().toLocaleDateString('pt-br')} - {`R$ ${bet.price.toFixed(2).replace('.', ',')}`}
+                                    {bet.created_at.substr(0, 10)} - {`R$ ${bet.price.toFixed(2).replace('.', ',')}`}
                                 </p>
                                 <BetGameType color={bet.game.color}>{bet.game.type}</BetGameType>
                             </BetCard>
@@ -114,6 +137,10 @@ const Home: React.FC = () => {
                                 <BetGameType color={bet.game.color}>{bet.game.type}</BetGameType>
                             </BetCard>
                         </Parent>)}
+
+                        <div className="pages">
+                            {[...Array(pagesNum)].map((pages, i) => <button value={i+1} onClick={incrementPage}>{i+1}</button>)}
+                        </div>
 
                         {userBets?.length === 0 && <p id="noBet">Seems like you don't have any games yet! Click 
                         <strong><Link to="/bet"> here</Link></strong> or in the 'New Bet' button so you can get your first ones!</p>}

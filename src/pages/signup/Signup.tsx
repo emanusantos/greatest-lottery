@@ -56,7 +56,7 @@ const Signup: React.FC = () => {
     const formHandler = (event: React.SyntheticEvent) => {
         event.preventDefault();
 
-        if (nameReg.length === 0 || emailReg.length === 0 || passwordReg.length === 0) {
+        if (nameReg.length === 0 || emailReg.length === 0 || passwordReg.length <= 3) {
             errorHandler();
             return;
         };
@@ -111,7 +111,7 @@ const Signup: React.FC = () => {
                     <h2><VscError /></h2>
                 </div>
                 <div className="errorText">
-                    <p>Please enter valid credentials.</p>
+                    <p>Your password length must be greater than 3.</p>
                 </div>
                 
             </Modal>}

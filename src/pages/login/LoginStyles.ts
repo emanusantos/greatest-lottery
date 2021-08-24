@@ -49,6 +49,20 @@ export const Container = styled.div<Props>`
     background-color: ${props => props.bgc};
     font-style: italic;
 
+    .pages {
+        align-self: center;
+        display: flex;
+        gap: 1rem;
+
+        button {
+            font-size: 1rem;
+            background: inherit;
+            font-style: italic;
+            border: none;
+            cursor: pointer;
+        }
+    }
+
     #noBet {
         padding-top: 5rem;
         text-align: center;
