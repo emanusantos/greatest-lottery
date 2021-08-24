@@ -34,11 +34,11 @@ const GameArea: React.FC = () => {
     const [choseNumbers, setChoseNumbers] = useState<any>();
     const [toCart, setToCart] = useState<any>([]);
 
-    const cartAddHandler = (arg: any) => {
+    const cartAddHandler = (arg: any): void => {
         setToCart(arg);
     };
 
-    const updateGameType = (e: string) => {
+    const updateGameType = (e: string): void => {
         if (e === game.type) {
             return;
         };
@@ -86,7 +86,7 @@ const GameArea: React.FC = () => {
         setChoseNumbers([...choseNumbers, numberSelected])
     }
     
-    const checker = () => {
+    const checker = (): boolean => {
         if (game.type === '') {
             return false;
         } else {
@@ -106,7 +106,7 @@ const GameArea: React.FC = () => {
         }));
     };
 
-    const getRandomGame = () => {
+    const getRandomGame = (): void => {
         const amount = game['max_number'] - choseNumbers.length;
         const randomizedNumbers = generateNumbers(amount, game.range, choseNumbers);
         setChoseNumbers([...randomizedNumbers]);
@@ -128,7 +128,7 @@ const GameArea: React.FC = () => {
           return array
     };
 
-    const formatNumbers = () => {
+    const formatNumbers = (): string => {
         let display = '';
         choseNumbers.sort((a: number, b: number) => a - b).forEach((item: number, index: number) => {
             if (index !== choseNumbers.length - 1) {
@@ -140,11 +140,11 @@ const GameArea: React.FC = () => {
         return display;
     }
 
-    const clearGame = () => {
+    const clearGame = (): void => {
         setChoseNumbers([]);
     };
 
-    const addItemToCart = () => {
+    const addItemToCart = (): void => {
         if (choseNumbers.length < game['max_number']) {
             return;
         }

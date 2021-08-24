@@ -4,7 +4,7 @@ import { BetContainer, GameTypeButton } from './NewBetStyles';
 import CartArea from '../../components/CartArea/CartArea';
 import { Game, GameButtons, BetButton, AddButton } from '../../components/GameArea/GameAreaStyles';
 import SelectedNumbers from '../../components/SelectedNumber/SelectedNumber';
-import { Games, Bet } from '../../types/types';
+import { Games, Bet, GameResponse } from '../../types/types';
 import { IoCartOutline } from 'react-icons/io5';
 import { VscError } from 'react-icons/vsc';
 import { token } from '../../store/regSlice';
@@ -29,7 +29,7 @@ const NewBet: React.FC = () => {
         getGames();
     }, []);
 
-    const getGames = async () => {
+    const getGames = async (): Promise<void> => {
         const games = await axios.get('http://localhost:3333/games');
         setData(games.data)
         console.log(games.data);
@@ -41,7 +41,7 @@ const NewBet: React.FC = () => {
         };
     };
 
-    const [data, setData] = useState<any>([]);
+    const [data, setData] = useState<GameResponse[]>([]);
 
     const [game, setGame] = useState<Games>({
         type: '', 
@@ -176,7 +176,7 @@ const NewBet: React.FC = () => {
           return array
     };
 
-    const formatNumbers = () => {
+    const formatNumbers = (): string => {
         let display = '';
         choseNumbers!.sort((a: number, b: number) => a - b).forEach((item: number, index: number) => {
             if (index !== choseNumbers!.length - 1) {

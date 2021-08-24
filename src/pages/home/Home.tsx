@@ -8,7 +8,7 @@ import { Parent } from './HomeStyles';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { token, setId } from '../../store/regSlice';
-import { Games } from '../../types/types';
+import { Games, BetResponse } from '../../types/types';
 import { GameTypeButton } from '../newbet/NewBetStyles';
 import axios from 'axios';
 
@@ -23,7 +23,7 @@ const Home: React.FC = () => {
         getBets();
     }, []);
 
-    const getGames = async () => {
+    const getGames = async (): Promise<void> => {
         const games = await axios.get('http://localhost:3333/games');
         setData(games.data)
         console.log(games.data);
@@ -31,7 +31,7 @@ const Home: React.FC = () => {
 
     const userToken = useAppSelector(token);
 
-    const getBets = async () => {
+    const getBets = async (): Promise<void> => {
         await axios.get('http://localhost:3333/bets', {
             headers: {
                 'Authorization': `Bearer ${userToken}`
@@ -48,7 +48,7 @@ const Home: React.FC = () => {
     const [filters, setFilters] = useState<string | null>(null);
 
     const [data, setData] = useState<Games[]>([]);
-    const [userBets, setUserBets] = useState<any>([]);
+    const [userBets, setUserBets] = useState<BetResponse[]>([]);
 
     const userCheck = () => {
         if (!userToken) {
@@ -56,7 +56,7 @@ const Home: React.FC = () => {
         };
     };
 
-    const filteredData = userBets?.filter((bet: any) => bet.game.type === filters);
+    const filteredData = userBets?.filter((bet: BetResponse) => bet.game.type === filters);
 
     return (
         <>
@@ -90,7 +90,7 @@ const Home: React.FC = () => {
                 </div>
                 <h4 id="newbet"><Link to="/bet">New Bet ➝</Link></h4>
             </StyledHomeHeader>
-                        {userBets && filteredData?.map((bet: any) =>
+                        {userBets && filteredData?.map((bet: BetResponse) =>
                         <Parent key={Math.random()*20}>
                             <ColoredBar bgc={bet.game.color} />
                             <BetCard>
@@ -109,7 +109,7 @@ const Home: React.FC = () => {
                             <BetCard>
                                 <p id="numbers">{bet.numbers}</p>
                                 <p id="dateAndPrice">
-                                    {new Date().toLocaleDateString('pt-br')} - {`R$ ${bet.price.toFixed(2).replace('.', ',')}`}
+                                    {bet.created_at.substr(0, 10)} - {`R$ ${bet.price.toFixed(2).replace('.', ',')}`}
                                 </p>
                                 <BetGameType color={bet.game.color}>{bet.game.type}</BetGameType>
                             </BetCard>

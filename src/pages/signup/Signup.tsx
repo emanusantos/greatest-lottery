@@ -31,11 +31,11 @@ const Signup: React.FC = () => {
         success: false
     });
 
-    const errorHandler = () => {
+    const errorHandler = (): void => {
         setModal({...modal, error: !modal.error});
     };
 
-    const successHandler = () => {
+    const successHandler = (): void => {
         setModal({...modal, success: !modal.success});
     };
     const history = useHistory();
@@ -71,6 +71,7 @@ const Signup: React.FC = () => {
           })
           .catch(function (error) {
             console.log(error);
+            errorHandler();
           });
 
         successHandler();

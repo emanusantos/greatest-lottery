@@ -32,8 +32,6 @@ interface InputProps {
 }
 
 export const Input: React.FC<InputProps> = (props) => {
-
-    
     return (
         <StyledInput type={props.type} placeholder={props.placeholder} onChange={props.onChange} id={props.id} value={props.value}  />
     )

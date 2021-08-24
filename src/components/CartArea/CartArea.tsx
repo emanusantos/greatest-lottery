@@ -19,15 +19,15 @@ const CartArea = ({ cart, onRemoveGame, total, handleCleanUp }: { cart: Bet[], o
         success: false
     });
 
-    const errorHandler = () => {
+    const errorHandler = (): void => {
         setModal({...modal, error: !modal.error});
     };
 
-    const successHandler = () => {
+    const successHandler = (): void => {
         setModal({...modal, success: !modal.success});
     };
 
-    const handleSave = () => {
+    const handleSave = (): void => {
         if (total < 30) {
             errorHandler();
             return;
@@ -35,7 +35,7 @@ const CartArea = ({ cart, onRemoveGame, total, handleCleanUp }: { cart: Bet[], o
 
         const postedData = cart.map(({ game_id, numbers }) => ({ game_id, numbers }));
 
-        const postBets = async () => {
+        const postBets = async (): Promise<void> => {
             await axios.post('http://localhost:3333/bets', {
                 betCart: postedData
             }, {

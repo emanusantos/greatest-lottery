@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
     const dispatch = useAppDispatch();
     const history = useHistory();
     
-    const logoutHandler = () => {
+    const logoutHandler = (): void => {
         dispatch(authSession(null));
         history.push('/login');
     };
